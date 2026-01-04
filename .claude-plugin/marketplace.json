@@ -1,0 +1,14 @@
+{
+  "name": "malanka-marketplace",
+  "owner": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "metadata": {
+    "description": "Dzmitry Bahaslouski plugin marketplace for Claude Code",
+    "version": "1.0.0",
+    "license": "MIT",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": []
+}
