@@ -13,9 +13,13 @@
     {
       "name": "git",
       "source": "./plugins/git",
-      "version": "0.1.0",
       "description": "Streamlined Git commit command with auto-generated messages and preview",
-      "category": "git"
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "development",
+      "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/git"
     }
   ]
 }
