@@ -14,7 +14,8 @@
       "name": "git",
       "source": "./plugins/git",
       "version": "0.1.0",
-      "description": "Streamlined Git commit command with auto-generated messages and preview"
+      "description": "Streamlined Git commit command with auto-generated messages and preview",
+      "category": "git"
     }
   ]
 }
