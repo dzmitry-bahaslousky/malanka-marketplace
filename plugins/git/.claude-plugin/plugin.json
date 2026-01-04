@@ -1,0 +1,14 @@
+{
+  "name": "git",
+  "version": "0.1.0",
+  "description": "Streamlined Git commands",
+  "author": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "category": "git",
+  "keywords": ["git", "workflow"],
+  "commands": [
+    "./commands/commit/"
+  ]
+}

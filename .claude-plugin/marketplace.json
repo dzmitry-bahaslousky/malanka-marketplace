@@ -7,8 +7,14 @@
   "metadata": {
     "description": "Dzmitry Bahaslouski plugin marketplace for Claude Code",
     "version": "1.0.0",
-    "license": "MIT",
-    "pluginRoot": "./plugins"
+    "license": "MIT"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "git",
+      "source": "./plugins/git",
+      "version": "0.1.0",
+      "description": "Streamlined Git commit command with auto-generated messages and preview"
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 ---
-name: git-commit
+name: commit
 description: Create a Git commit with optional title, auto-generated body, and preview confirmation
 argument-hint: "[optional commit title]"
 allowed-tools:
