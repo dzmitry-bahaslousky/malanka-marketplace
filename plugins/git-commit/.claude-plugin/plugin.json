@@ -1,0 +1,10 @@
+{
+  "name": "git-commit",
+  "version": "0.1.0",
+  "description": "Streamlined Git commit command with auto-generated messages and preview",
+  "author": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "keywords": ["git", "commit", "workflow", "automation"]
+}
