@@ -6,8 +6,5 @@
     "name": "Dzmitry Bahaslouski",
     "email": "dzmitry.bahaslouski.jcs@gmail.com"
   },
-  "keywords": ["git", "workflow"],
-  "commands": [
-    "./commands/commit"
-  ]
+  "keywords": ["git", "workflow"]
 }
