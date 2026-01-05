@@ -48,6 +48,8 @@ Based on whether a title was provided:
 
 **Message generation guidelines**:
 - Use imperative mood ("Add" not "Added", "Fix" not "Fixed")
+- **Do NOT use conventional commit prefixes** (no "feat:", "fix:", "bug:", "bugfix:", "chore:", etc.)
+- Use natural language (e.g., "Add user authentication" not "feat: Add user authentication")
 - Be specific about what changed
 - Focus on the "what" and "why", not the "how"
 - For body: Mention key files/components affected
