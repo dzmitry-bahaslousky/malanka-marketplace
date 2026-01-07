@@ -6,6 +6,27 @@ A plugin marketplace for Claude Code, providing a curated collection of plugins 
 
 This marketplace serves as a centralized catalog for distributing Claude Code plugins. Plugins can be added to this marketplace and distributed to teams and communities via GitHub.
 
+## Available Plugins
+
+### Git Plugin
+
+Enhanced Git workflow automation with intelligent commit generation, code review, and branch management.
+
+**Commands:**
+- `/commit [optional title]` - Create Git commits with auto-generated messages based on staged changes. Includes interactive preview and editing before committing.
+- `/clean-branches` - Safely delete merged local branches with interactive selection and protection for current/default branches.
+
+**Agents:**
+- `code-reviewer` - Autonomous code review agent that analyzes pull requests, compares branches, and identifies security vulnerabilities, code quality issues, and best practice violations. Triggered by requests like "review this PR" or "compare branches".
+
+**Skills:**
+- `Git Commit Search` - Search git history using natural language queries. Find commits by message content, author, date range, or file path. Provides progressive disclosure: summaries first, detailed diffs on request.
+
+**Installation:**
+```bash
+/plugin install git@malanka-marketplace
+```
+
 ## Installation
 
 ### For Users

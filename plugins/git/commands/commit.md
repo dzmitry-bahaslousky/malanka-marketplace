@@ -53,6 +53,7 @@ Based on whether a title was provided:
 - Be specific about what changed
 - Focus on the "what" and "why", not the "how"
 - For body: Mention key files/components affected
+- **Do NOT add any Claude Code attribution, co-author tags, or tool mentions** (no "Generated with Claude Code", no "Co-Authored-By", no emoji attributions)
 
 ### 4. Get Staged Files List
 
@@ -69,17 +70,25 @@ D  src/utils/old-helper.ts
 
 Use AskUserQuestion tool to show the preview and get user decision.
 
-Present the information clearly:
+**CRITICAL**: You MUST include the commit message and file list in the question text. The question parameter should contain:
 
-**Question format**:
 ```
 Commit Message:
-[generated message]
+[the actual generated commit message here - show the full message]
 
 Staged Files:
-[file list from step 4]
+[the actual file list from step 4 - show all files with their status]
 
 Ready to commit?
+```
+
+**Example of what to pass to AskUserQuestion**:
+```json
+{
+  "question": "Commit Message:\nAdd Available Plugins section to README\n\nDocument git plugin commands, agents, and skills with installation instructions\n\nStaged Files:\nM  README.md\nM  .gitignore\n\nReady to commit?",
+  "header": "Confirm",
+  "options": [...]
+}
 ```
 
 **Options**:
@@ -97,6 +106,7 @@ Ready to commit?
   EOF
   )"
   ```
+- **IMPORTANT**: Use ONLY the generated commit message without any additional attribution, co-author tags, or tool mentions
 - Show the git output
 - Confirm success
 
@@ -116,6 +126,7 @@ Ready to commit?
 - If any git command fails, show the error and stop
 - Preserve exact formatting and line breaks in commit messages
 - The body should provide context that isn't obvious from the diff itself
+- **NEVER add Claude Code attribution, co-author tags, emoji attributions, or any tool mentions to commit messages** - use only the commit message generated from the diff analysis
 
 ## Examples
 
