@@ -1,6 +1,6 @@
 # Git Plugin
 
-Comprehensive Git workflow automation with intelligent commit creation and AI-powered code review.
+Comprehensive Git workflow automation with intelligent commit creation, AI-powered code review, and natural language commit search.
 
 ## Features
 
@@ -26,6 +26,13 @@ Comprehensive Git workflow automation with intelligent commit creation and AI-po
 - **Branch details** - displays last commit date and message for context
 - **Multi-select** - choose multiple branches to delete at once
 - **Safe deletion** - uses `git branch -d` to prevent accidental data loss
+
+### Commit Search Skill
+- **Natural language queries** - ask about commit history conversationally
+- **Multi-criteria search** - find commits by message, author, date, file, or branch
+- **Interactive exploration** - see summaries first, then dive into diffs on request
+- **Comprehensive search options** - supports all git log search capabilities
+- **Smart suggestions** - Claude helps construct effective search queries
 
 ## Installation
 
@@ -130,6 +137,60 @@ Your repository is now cleaner!
 - After merging PRs to keep your local repo clean
 - Before starting new work to reduce clutter
 - Periodically to maintain good repository hygiene
+
+### Commit Search Skill
+
+Find commits through natural conversation - no need to remember git log syntax. The skill activates automatically when you ask about commit history.
+
+**Examples:**
+- "When did we change the authentication logic?"
+- "Show me commits by Sarah from last week"
+- "Find commits that modified the API endpoints"
+- "What changed in config files recently?"
+- "Who worked on the login feature?"
+
+**How it works:**
+1. **Ask naturally** - Just describe what you're looking for
+2. **Claude constructs search** - Builds appropriate git log command with filters
+3. **See summary** - Review commits with hash, date, author, and message
+4. **Explore details** - Ask to see diffs for specific commits
+5. **Refine search** - Add more criteria if needed
+
+**Search capabilities:**
+- **By message**: Find commits mentioning specific topics
+- **By author**: See commits from specific developers
+- **By date**: Filter to date ranges (last week, specific dates, etc.)
+- **By file**: Find changes to specific files or directories
+- **By branch**: Compare branches or search specific branches
+- **Combined**: Mix multiple criteria for precise results
+
+**Example conversation:**
+
+```
+You: "When did we add the dark mode feature?"
+
+Claude: I'll search for commits related to dark mode...
+        Found 5 commits:
+
+        abc1234 - 2024-01-15, John: Add dark mode toggle to settings
+        def5678 - 2024-01-16, Sarah: Implement dark mode styles
+        ghi9012 - 2024-01-17, John: Fix dark mode contrast issues
+        jkl3456 - 2024-01-18, Sarah: Add dark mode persistence
+        mno7890 - 2024-01-20, John: Update docs for dark mode
+
+        Would you like to see the diff for any of these commits?
+
+You: "Show me the first one"
+
+Claude: [Shows full diff of abc1234]
+```
+
+**When to use:**
+- Investigating when changes were introduced
+- Finding who made specific modifications
+- Tracking feature development history
+- Debugging by finding when bugs appeared
+- Code archaeology and project history exploration
 
 ## Requirements
 
