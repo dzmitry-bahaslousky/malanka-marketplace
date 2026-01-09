@@ -75,24 +75,53 @@ Follow this systematic workflow:
 - Verify both branches exist with `git rev-parse --verify <branch>`
 - If branch doesn't exist, inform user and stop
 
-### 2. Analyze Changed Files
+### 2. Get and Display Changed Files List
 
-**Get file list:**
+**CRITICAL: Always show the changed files list to the user first!**
+
+Run this command and SHOW THE OUTPUT TO THE USER:
 ```bash
 git diff --name-status <base-branch>...<compare-branch>
 ```
 
+**Present to user:**
+```
+📋 **Changed Files** (comparing <compare-branch> vs <base-branch>):
+
+<show the git diff --name-status output here>
+
+Total: X files changed (Y added, Z modified, W deleted)
+```
+
 **Understand the scope:**
 - Count total files changed
-- Categorize by change type (Added, Modified, Deleted)
-- Identify file types (source code, config, tests, etc.)
+- Categorize by change type (Added, Modified, Deleted, Renamed)
+- Identify file types (source code, config, tests, docs, etc.)
 
-**Read all changed files:**
-- For each modified or added file, use Read tool to examine current content
-- For context, also read the base version if helpful: `git show <base-branch>:<file-path>`
-- Analyze the actual diff: `git diff <base-branch>...<compare-branch> -- <file-path>`
+### 3. Analyze Changed Files in Detail
 
-### 3. Comprehensive Code Review
+**For each modified or added file:**
+
+1. **Get the actual diff first** - This shows exactly what changed:
+   ```bash
+   git diff <base-branch>...<compare-branch> -- <file-path>
+   ```
+
+2. **Read current version** to understand context:
+   - Use Read tool to examine the current file content
+   - This helps understand the overall structure
+
+3. **Analyze the diff output carefully:**
+   - Lines starting with `+` are additions
+   - Lines starting with `-` are deletions
+   - Unchanged lines provide context
+   - Look at the actual changed lines, not just the whole file
+
+**For deleted files:**
+- Note that they were removed
+- If relevant, check what they contained with: `git show <base-branch>:<file-path>`
+
+### 4. Comprehensive Code Review
 
 Analyze each changed file for:
 
@@ -137,7 +166,7 @@ Analyze each changed file for:
 
 Note: Only mention performance issues if they're significant. Focus primarily on security, quality, and best practices.
 
-### 4. Provide Conversational Review
+### 5. Provide Conversational Review
 
 **Output Format:**
 
@@ -145,6 +174,7 @@ Structure your review as a natural, conversational narrative:
 
 1. **Opening Context:**
    - Briefly state what you're comparing (branch names)
+   - **SHOW THE CHANGED FILES LIST** with their status (A=Added, M=Modified, D=Deleted, R=Renamed)
    - Summarize the scope (X files changed: Y added, Z modified, W deleted)
    - Mention overall impression (major refactor, small fix, new feature, etc.)
 
@@ -208,7 +238,10 @@ Structure your review as a natural, conversational narrative:
 ## Quality Standards
 
 **Thoroughness:**
-- Read ALL changed files (no limits - review everything)
+- ALWAYS show the changed files list to the user first
+- Analyze ALL changed files (no limits - review everything)
+- Get and examine the actual diff output for each file - don't just read the whole file
+- Focus your review on the lines that actually changed (marked with + or - in the diff)
 - Don't skip files even if there are many
 - Provide specific line references for issues
 
@@ -234,9 +267,23 @@ I'll analyze the changes between your feature/user-auth branch and main...
 
 Comparing feature/user-auth...main
 
-**Scope:** 8 files changed (4 added, 3 modified, 1 deleted)
+📋 **Changed Files:**
 
-This looks like a significant authentication system implementation. Let me walk through what I found:
+A       auth/login.ts
+A       auth/middleware.ts
+A       auth/password-utils.ts
+A       auth/register.ts
+M       routes/user.ts
+M       config/database.ts
+M       package.json
+A       migrations/001_add_users_table.sql
+D       utils/old-auth.ts
+
+Total: 9 files changed (5 added, 3 modified, 1 deleted)
+
+---
+
+This looks like a significant authentication system implementation. Let me examine the actual changes in each file...
 
 **Authentication Implementation (auth/login.ts, auth/middleware.ts)**
 
@@ -278,7 +325,10 @@ The authentication implementation is solid overall, especially the password hash
 
 ## Important Notes
 
-- Always read the actual file contents - don't just rely on git diff output
+- **ALWAYS show the changed files list first** - this is critical for user visibility
+- **Get the actual diff for each file** using `git diff <base>...<compare> -- <file>` - don't skip this step
+- **Focus on actual changes** - review the lines that were added/removed, not the entire file
+- Read the full file content only when you need context to understand the changes
 - Be thorough but concise - provide value, not noise
 - Focus on issues that matter - don't nitpick style unless it's truly problematic
 - Explain the *impact* of issues, not just their existence
