@@ -1,10 +1,10 @@
 # Malanka Marketplace
 
-A plugin marketplace for Claude Code, providing a curated collection of plugins for enhanced development workflows.
+A plugin marketplace for Claude Code, providing a curated collection of plugins for enhanced development workflows and specialized domain expertise.
 
 ## Overview
 
-This marketplace serves as a centralized catalog for distributing Claude Code plugins. Plugins can be added to this marketplace and distributed to teams and communities via GitHub.
+This marketplace serves as a centralized catalog for distributing Claude Code plugins. Currently featuring plugins for Git workflow automation and ISO20022 financial messaging standards. Plugins can be added to this marketplace and distributed to teams and communities via GitHub.
 
 ## Available Plugins
 
@@ -25,6 +25,30 @@ Enhanced Git workflow automation with intelligent commit generation, code review
 **Installation:**
 ```bash
 /plugin install git@malanka-marketplace
+```
+
+### ISO20022 Expert Plugin
+
+Expert knowledge and guidance on ISO20022 financial messaging standards, covering all major message types for payments, cash management, and exceptions handling.
+
+**Skills:**
+- `ISO20022 Expertise` - Comprehensive ISO20022 knowledge base that auto-activates on questions about ISO20022 standards. Provides expert guidance on 22+ message types including pain (Payment Initiation), pacs (Payments Clearing and Settlement), and camt (Cash Management) messages. Features progressive disclosure with concise answers and references to official specifications.
+
+**Coverage:**
+- **Payment Initiation (pain)**: pain.001, pain.002, pain.007, pain.008, pain.013, pain.014
+- **Payments Clearing & Settlement (pacs)**: pacs.002-004, pacs.007-010, pacs.028
+- **Cash Management (camt)**: camt.026-027, camt.029, camt.052-056, camt.060, camt.087
+
+**Includes:**
+- Over 1 million words of official ISO20022 specification documents
+- Natural language Q&A interface
+- Implementation guidance and best practices
+- Message structure and field definitions
+- Validation requirements and business rules
+
+**Installation:**
+```bash
+/plugin install iso20022-expert@malanka-marketplace
 ```
 
 ## Installation

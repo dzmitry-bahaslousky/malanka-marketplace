@@ -20,6 +20,17 @@
       },
       "category": "development",
       "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/git"
+    },
+    {
+      "name": "iso20022-expert",
+      "source": "./plugins/iso20022-expert",
+      "description": "ISO20022 financial messaging standards expert providing guidance on message formats, schemas, and implementation",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "financial",
+      "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/iso20022-expert"
     }
   ]
 }
