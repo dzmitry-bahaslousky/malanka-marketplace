@@ -19,14 +19,6 @@ Comprehensive Git workflow automation with intelligent commit creation, AI-power
 - **Deep file analysis** - reads actual code for context-aware review
 - **Actionable insights** - conversational narrative explaining findings and recommendations
 
-### Clean Branches Command
-- **Interactive cleanup** - safely delete merged branches with user confirmation
-- **Smart filtering** - only shows branches merged into main/master
-- **Protected branches** - never deletes main, master, develop, or current branch
-- **Branch details** - displays last commit date and message for context
-- **Multi-select** - choose multiple branches to delete at once
-- **Safe deletion** - uses `git branch -d` to prevent accidental data loss
-
 ### Commit Search Skill
 - **Natural language queries** - ask about commit history conversationally
 - **Multi-criteria search** - find commits by message, author, date, file, or branch
@@ -91,52 +83,6 @@ The code review agent activates automatically when you mention reviewing code or
 - Current branch vs. main (automatic)
 - Specific branch vs. main: "review changes in feature/new-api"
 - Two explicit branches: "compare develop and feature/auth"
-
-### Clean Branches Command
-
-Keep your repository clean by removing merged branches that are no longer needed.
-
-**Basic usage:**
-```
-/clean-branches
-```
-
-**Workflow:**
-1. Run `/clean-branches`
-2. See list of merged branches with details (date, commit message)
-3. Select which branches to delete (multi-select enabled)
-4. Confirm deletion
-5. Branches deleted safely!
-
-**Safety features:**
-- Only shows branches fully merged into main/master
-- Never shows protected branches (main, master, develop, current branch)
-- Requires explicit confirmation before deletion
-- Uses safe delete (`-d`) to prevent data loss
-- Shows detailed results with success/failure for each branch
-
-**Example output:**
-```
-Found 3 merged branches that can be safely deleted:
-
-Select branches to delete:
-□ feature/old-login (merged 2 weeks ago - "Update login flow")
-□ bugfix/typo-fix (merged 1 month ago - "Fix typo in README")
-□ feature/dark-mode (merged 5 days ago - "Add dark mode toggle")
-
-Ready to delete 2 selected branches?
-
-✓ Successfully deleted 2 branches:
-  - feature/old-login
-  - bugfix/typo-fix
-
-Your repository is now cleaner!
-```
-
-**When to use:**
-- After merging PRs to keep your local repo clean
-- Before starting new work to reduce clutter
-- Periodically to maintain good repository hygiene
 
 ### Commit Search Skill
 

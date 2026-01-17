@@ -14,7 +14,6 @@ Enhanced Git workflow automation with intelligent commit generation, code review
 
 **Commands:**
 - `/commit [optional title]` - Create Git commits with auto-generated messages based on staged changes. Includes interactive preview and editing before committing.
-- `/clean-branches` - Safely delete merged local branches with interactive selection and protection for current/default branches.
 
 **Agents:**
 - `code-reviewer` - Autonomous code review agent that analyzes pull requests, compares branches, and identifies security vulnerabilities, code quality issues, and best practice violations. Triggered by requests like "review this PR" or "compare branches".
