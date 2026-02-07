@@ -25,7 +25,7 @@
       "name": "context7",
       "source": {
         "source": "github",
-        "url": "https://github.com/upstash/context7.git"
+        "repo": "upstash/context7"
       },
       "description": "Up-to-date documentation lookup. Pull version-specific documentation and code examples directly from source repositories into your LLM context.",
       "homepage": "https://github.com/upstash/context7/tree/master"
