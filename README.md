@@ -15,77 +15,9 @@ Enhanced Git workflow automation with intelligent commit generation, code review
 **Commands:**
 - `/commit [optional title]` - Create Git commits with auto-generated messages based on staged changes. Includes interactive preview and editing before committing.
 
-**Agents:**
-- `code-reviewer` - Autonomous code review agent that analyzes pull requests, compares branches, and identifies security vulnerabilities, code quality issues, and best practice violations. Triggered by requests like "review this PR" or "compare branches".
-
-**Skills:**
-- `Git Commit Search` - Search git history using natural language queries. Find commits by message content, author, date range, or file path. Provides progressive disclosure: summaries first, detailed diffs on request.
-
 **Installation:**
 ```bash
 /plugin install git@malanka-marketplace
-```
-
-### ISO20022 Expert Plugin
-
-Expert knowledge and guidance on ISO20022 financial messaging standards, covering all major message types for payments, cash management, and exceptions handling.
-
-**Skills:**
-- `ISO20022 Expertise` - Comprehensive ISO20022 knowledge base that auto-activates on questions about ISO20022 standards. Provides expert guidance on 22+ message types including pain (Payment Initiation), pacs (Payments Clearing and Settlement), and camt (Cash Management) messages. Features progressive disclosure with concise answers and references to official specifications.
-
-**Coverage:**
-- **Payment Initiation (pain)**: pain.001, pain.002, pain.007, pain.008, pain.013, pain.014
-- **Payments Clearing & Settlement (pacs)**: pacs.002-004, pacs.007-010, pacs.028
-- **Cash Management (camt)**: camt.026-027, camt.029, camt.052-056, camt.060, camt.087
-
-**Includes:**
-- Over 1 million words of official ISO20022 specification documents
-- Natural language Q&A interface
-- Implementation guidance and best practices
-- Message structure and field definitions
-- Validation requirements and business rules
-
-**Installation:**
-```bash
-/plugin install iso20022-expert@malanka-marketplace
-```
-
-## Installation
-
-### For Users
-
-Add this marketplace to your Claude Code installation:
-
-```bash
-# If hosted on GitHub at odzmitry-bahaslouskywner/malanka-marketplace
-/plugin marketplace add dzmitry-bahaslousky/malanka-marketplace
-
-# Or using full URL
-/plugin marketplace add https://github.com/dzmitry-bahaslousky/malanka-marketplace.git
-```
-
-Once added, you can install plugins from this marketplace:
-
-```bash
-# List available plugins
-/plugin list
-
-# Install a specific plugin
-/plugin install plugin-name@malanka-marketplace
-
-# Update marketplace catalog
-/plugin marketplace update
-```
-
-## Directory Structure
-
-```
-malanka-marketplace/
-├── .claude-plugin/
-│   └── marketplace.json          # Marketplace catalog
-├── plugins/                       # Plugin storage directory
-│   └── (plugins will be added here)
-└── README.md                      # This file
 ```
 
 ## Adding Plugins to This Marketplace
