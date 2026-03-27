@@ -11,6 +11,16 @@
   },
   "plugins": [
     {
+      "name": "java-linter",
+      "source": "./plugins/java-linter",
+      "description": "Automatically runs Spotless formatter on Java files after every edit or write",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "development"
+    },
+    {
       "name": "git",
       "source": "./plugins/git",
       "description": "Streamlined Git commit command with auto-generated messages and preview",
