@@ -30,6 +30,20 @@
       },
       "category": "development",
       "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/git"
+    },
+    {
+      "name": "obsidian-skills",
+      "source": {
+        "source": "github",
+        "repo": "owner/plugin-repo",
+        "description": "Claude Skills for Obsidian",
+        "author": {
+          "name": "Steph Ango",
+          "url": "https://stephango.com/"
+        },
+        "homepage": "https://github.com/kepano/obsidian-skills",
+        "category": "productivity"
+      }
     }
   ]
 }
