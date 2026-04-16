@@ -57,6 +57,16 @@ Use this exact structure:
 - [If none, write: *No follow-up items.*]
 ```
 
+## Language
+
+Detect the language of the input transcript and write all **content** (bullet text, descriptions, names of topics, action item text, etc.) in that same language.
+
+Keep the structural elements in English as-is: section headings (`## Key Discussion Points`, `## Decisions`, etc.), labels (`**Date:**`, `**Attendees:**`), and fallback phrases (`*No decisions recorded.*`, `*unassigned*`, etc.).
+
+If the transcript contains multiple languages or you cannot confidently determine the language, ask the user: "What language should I use for the meeting notes content?" before producing any output.
+
+Do not translate proper nouns, names, or technical terms.
+
 ## Guidelines
 
 - **Be concise**: Each bullet should be one clear sentence. Avoid filler.
