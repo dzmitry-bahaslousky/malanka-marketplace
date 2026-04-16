@@ -11,8 +11,8 @@
   },
   "plugins": [
     {
-      "name": "java-linter",
-      "source": "./plugins/java-linter",
+      "name": "java-spotless",
+      "source": "./plugins/java-spotless",
       "description": "Automatically runs Spotless formatter on Java files after every edit or write",
       "author": {
         "name": "Dzmitry Bahaslouski",
