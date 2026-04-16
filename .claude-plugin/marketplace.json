@@ -21,6 +21,16 @@
       "category": "development"
     },
     {
+      "name": "meeting-notes",
+      "source": "./plugins/meeting-notes",
+      "description": "Transform meeting transcripts into structured notes with key points, decisions, action items, and follow-ups",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity"
+    },
+    {
       "name": "git",
       "source": "./plugins/git",
       "description": "Streamlined Git commit command with auto-generated messages and preview",

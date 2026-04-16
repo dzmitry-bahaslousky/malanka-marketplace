@@ -1,0 +1,10 @@
+{
+  "name": "meeting-notes",
+  "version": "0.1.0",
+  "description": "Transform meeting transcripts into structured notes with key points, decisions, action items, and follow-ups",
+  "author": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "keywords": ["meeting-notes", "transcripts"]
+}
