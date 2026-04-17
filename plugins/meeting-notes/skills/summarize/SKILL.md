@@ -1,9 +1,10 @@
 ---
 name: summarize
 description: Transform a meeting transcript into structured meeting notes. Triggers when the user runs /meeting-notes:summarize or asks to summarize a meeting transcript. Produces sections for Key Discussion Points, Decisions, Action Items, Questions, Parking Lot, and Follow-up.
-argument-hint: "[paste transcript or provide file path]"
+argument-hint: "[paste transcript or provide file path] [--output <file>]"
 allowed-tools:
   - Read
+  - Write
 version: 0.1.0
 ---
 
@@ -31,9 +32,16 @@ The transcript is provided either:
 
 If no transcript is provided, ask the user to paste one or provide a file path.
 
+## Output Destination
+
+Check the arguments for an `--output <file>` flag (e.g., `--output notes.md`).
+
+- **If `--output <file>` is present**: write the meeting notes to that file path using the Write tool, then confirm to the user: "Meeting notes saved to `<file>`."
+- **If no `--output` flag**: print the meeting notes to the console as normal.
+
 ## Output Format
 
-Output the meeting notes as a markdown document, printed to the console. Do not save to any file.
+Output the meeting notes as a markdown document.
 
 Use this exact structure:
 
