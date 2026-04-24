@@ -1,0 +1,10 @@
+{
+  "name": "learn",
+  "version": "0.1.0",
+  "description": "Generate structured learning paths for any topic, summarize video-course transcripts into clean Markdown notes, and get autonomous coaching that quizzes, clarifies misconceptions, and suggests next topics.",
+  "author": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "keywords": ["learning", "curriculum", "education", "tutor", "course-notes", "transcript"]
+}

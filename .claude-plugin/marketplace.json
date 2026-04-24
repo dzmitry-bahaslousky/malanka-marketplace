@@ -40,6 +40,16 @@
       },
       "category": "development",
       "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/git"
+    },
+    {
+      "name": "learn",
+      "source": "./plugins/learn",
+      "description": "Generate structured learning paths for any topic, summarize video-course transcripts, plus an autonomous coach that quizzes, clarifies, and suggests next steps",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "education"
     }
   ]
 }
