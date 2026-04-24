@@ -5,7 +5,7 @@ Generate structured learning paths for any topic — with prerequisites, resourc
 ## What it does
 
 - **`/learn:learn <topic>`** — One-shot curriculum generator. Produces a four-stage path (Prerequisites → Foundations → Intermediate → Advanced) where each stage has concepts, recommended resources, hands-on exercises, and self-check questions.
-- **`/learn:summarize-course <transcript>`** — Turns a pasted video-course transcript, subtitles, or lesson notes into a structured Markdown summary (Overview, Key Concepts, Examples & Demos, Takeaways, Open Questions, Resources). Prints to the console.
+- **`/learn:summarize-course <transcript>`** — Turns a pasted video-course transcript, subtitles, or lesson notes on **any subject** (programming, cooking, history, a language, music, philosophy, anything) into a structured Markdown summary (Overview, Key Concepts, Examples & Demos, Takeaways, Action Items). Prints to the console.
 - **`learning-coach` agent** — Autonomous tutor that triggers when you ask to be quizzed, when you express confusion while studying, immediately after a `/learn` path is generated, or when you ask "what should I learn next".
 
 ## Usage
