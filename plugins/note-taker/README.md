@@ -1,4 +1,4 @@
-# meeting-notes
+# note-taker
 
 Transform meeting transcripts into structured notes with a single command.
 
@@ -11,17 +11,17 @@ Transform meeting transcripts into structured notes with a single command.
 ## Usage
 
 ```
-/meeting-notes:summarize [paste transcript or provide file path]
+/note-taker:meeting-notes [paste transcript or provide file path]
 ```
 
 **Inline transcript:**
 ```
-/meeting-notes:summarize "Today we agreed to launch on the 20th. Sarah will prepare the release notes. John raised a question about rollback strategy but we ran out of time."
+/note-taker:meeting-notes "Today we agreed to launch on the 20th. Sarah will prepare the release notes. John raised a question about rollback strategy but we ran out of time."
 ```
 
 **From file:**
 ```
-/meeting-notes:summarize /path/to/transcript.txt
+/note-taker:meeting-notes /path/to/transcript.txt
 ```
 
 ## Output Structure
@@ -42,7 +42,7 @@ Transform meeting transcripts into structured notes with a single command.
 ## Installation
 
 ```bash
-cc --plugin-dir /path/to/plugins/meeting-notes
+cc --plugin-dir /path/to/plugins/note-taker
 ```
 
-Or add to your marketplace and install with `/plugin install meeting-notes@your-marketplace`.
+Or add to your marketplace and install with `/plugin install note-taker@your-marketplace`.

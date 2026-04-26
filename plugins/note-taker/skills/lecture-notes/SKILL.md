@@ -1,6 +1,6 @@
 ---
-name: summarize-course
-description: Summarize raw text from a video course (transcript, subtitles, or lesson notes) on ANY subject — technical, humanities, language-learning, cooking, business, philosophy, art, science, anything — into a clean, structured Markdown summary. Triggers when the user runs /learn:summarize-course, pastes a course transcript and asks for a summary, or says "summarize this lesson", "turn this transcript into notes", "make course notes from this". Produces sections for Overview, Key Concepts, Examples & Demos, Takeaways, and Action Items. Output is printed to the console — no files are written.
+name: lecture-notes
+description: Summarize raw text from a video course (transcript, subtitles, or lesson notes) on ANY subject — technical, humanities, language-learning, cooking, business, philosophy, art, science, anything — into a clean, structured Markdown summary. Triggers when the user runs /note-taker:lecture-notes, pastes a course transcript and asks for a summary, or says "summarize this lesson", "turn this transcript into notes", "make course notes from this". Produces sections for Overview, Key Concepts, Examples & Demos, Takeaways, and Action Items. Output is printed to the console — no files are written.
 argument-hint: "<paste the video transcript / subtitles / notes here>"
 allowed-tools: []
 version: 0.1.0

@@ -1,5 +1,5 @@
 {
-  "name": "meeting-notes",
+  "name": "note-taker",
   "version": "0.1.0",
   "description": "Transform meeting transcripts into structured notes with key points, decisions, action items, and follow-ups",
   "author": {

@@ -1,6 +1,6 @@
 ---
-name: summarize
-description: Transform a meeting transcript into structured meeting notes. Triggers when the user runs /meeting-notes:summarize or asks to summarize a meeting transcript. Produces sections for Key Discussion Points, Decisions, Action Items, Questions, Parking Lot, and Follow-up.
+name: meeting-notes
+description: Transform a meeting transcript into structured meeting notes. Triggers when the user runs /note-taker:meeting-notes or asks to summarize a meeting transcript. Produces sections for Key Discussion Points, Decisions, Action Items, Questions, Parking Lot, and Follow-up.
 argument-hint: "[paste transcript or provide file path] [--output <file>]"
 allowed-tools:
   - Read
