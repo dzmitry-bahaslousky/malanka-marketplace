@@ -1,6 +1,6 @@
 {
   "name": "notebooklm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Interact with Google NotebookLM from Claude Code — create notebooks, add sources, generate audio overviews, quizzes, flashcards, and chat with your research.",
   "author": {
     "name": "dzmitry.bahaslouski",
