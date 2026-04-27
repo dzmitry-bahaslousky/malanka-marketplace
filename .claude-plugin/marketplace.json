@@ -40,6 +40,16 @@
       },
       "category": "development",
       "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/git"
+    },
+    {
+      "name": "notebooklm",
+      "source": "./plugins/notebooklm",
+      "description": "Interact with Google NotebookLM from Claude Code — create notebooks, add sources, generate audio overviews, quizzes, flashcards, and chat with your research",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity"
     }
   ]
 }
