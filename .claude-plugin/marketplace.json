@@ -50,6 +50,16 @@
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
       "category": "productivity"
+    },
+    {
+      "name": "anki",
+      "source": "./plugins/anki",
+      "description": "Interact with Anki from Claude Code via the AnkiConnect MCP server — create decks, add cards, and query your collection",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity"
     }
   ]
 }
