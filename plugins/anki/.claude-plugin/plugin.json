@@ -1,6 +1,6 @@
 {
   "name": "anki",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Interact with Anki from Claude Code via the AnkiConnect MCP server — create decks, add cards, and query your collection",
   "author": {
     "name": "Dzmitry Bahaslouski",
