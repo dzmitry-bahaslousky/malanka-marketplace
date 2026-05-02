@@ -58,6 +58,10 @@ Just ask naturally — the skill triggers on phrases like:
 - "show me the formats for https://…"
 - "grab subtitles from https://…"
 
+## First YouTube download: one-time auth setup
+
+YouTube blocks anonymous requests with a "Sign in to confirm you're not a bot" challenge. The first time you ask the plugin to download a YouTube URL, it will prompt you once to pick how `yt-dlp` should authenticate — pick a browser it can read cookies from (Chrome, Firefox, Safari, or any keyword `yt-dlp` accepts), or supply a path to an exported `cookies.txt` file. Your choice is saved to `~/.config/yt-dlp/youtube-auth.conf` and reused silently on every future YouTube download. Delete or edit that file to change browsers or refresh expired cookies. The prompt does not appear for non-YouTube sites.
+
 ## Safety defaults
 
 - **Never overwrites** existing files (`--no-overwrites`).

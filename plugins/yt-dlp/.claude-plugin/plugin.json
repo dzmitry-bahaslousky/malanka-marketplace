@@ -1,6 +1,6 @@
 {
   "name": "yt-dlp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Download videos, audio, playlists, subtitles, and metadata from YouTube and any other yt-dlp-supported site",
   "author": {
     "name": "Dzmitry Bahaslouski",
