@@ -60,6 +60,16 @@
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
       "category": "productivity"
+    },
+    {
+      "name": "yt-dlp",
+      "source": "./plugins/yt-dlp",
+      "description": "Download videos, audio, playlists, subtitles, and metadata from YouTube and any other yt-dlp-supported site via a single conversational skill",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity"
     }
   ]
 }

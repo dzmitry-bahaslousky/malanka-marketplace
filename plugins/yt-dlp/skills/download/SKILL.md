@@ -1,0 +1,207 @@
+---
+name: download
+description: Download videos, audio, playlists, or subtitles from YouTube and other yt-dlp-supported sites, or inspect formats/metadata. Triggers on /yt-dlp:download and on phrases like "download this video", "rip the mp3 from", "get subtitles", "show formats for", "download this playlist".
+argument-hint: "<URL> [intent: video|audio|playlist|subs|info|<resolution>] [output-path]"
+allowed-tools:
+  - Bash
+  - AskUserQuestion
+version: 0.1.0
+---
+
+# yt-dlp Download
+
+Single skill that wraps `yt-dlp` for the most common downloading tasks. Interpret what the user wants, map it to the correct flags, and run it.
+
+## Workflow
+
+Follow these steps in order. Do not skip the pre-flight check.
+
+### 1. Pre-flight: Verify `yt-dlp` is installed
+
+Run this check first, every time:
+
+```bash
+command -v yt-dlp >/dev/null 2>&1 && yt-dlp --version
+```
+
+- **If the command succeeds**: continue to step 2.
+- **If `yt-dlp` is not found**: print the install guide below and **stop**. Do not attempt to install it for the user.
+
+```
+yt-dlp is not installed.
+
+Install it with one of:
+
+  macOS (Homebrew, recommended):
+    brew install yt-dlp
+
+  pipx (cross-platform, isolated):
+    pipx install yt-dlp
+
+  pip (last resort):
+    python3 -m pip install --user --upgrade yt-dlp
+
+Then re-run your request.
+
+Reference: https://github.com/yt-dlp/yt-dlp#installation
+```
+
+`ffmpeg` is also recommended (needed for audio extraction and merging hi-res video+audio streams). Only mention `ffmpeg` if the user's request requires it (audio, or a resolution that needs stream merging) AND `command -v ffmpeg` fails. Install hint: `brew install ffmpeg`.
+
+### 2. Parse the request
+
+Extract from the user's message and arguments:
+
+- **URL** — required. If no URL is present, ask the user for one and stop.
+- **Intent** — see the mapping table below. If ambiguous, default to `video`.
+- **Output path** — optional. If the user provided one, use it. Otherwise default to `~/Downloads/` (do NOT ask — silent default).
+- **Resolution / format hint** — only if the user mentioned one (e.g. "1080p", "4k", "best", "worst").
+
+### 3. Intent → flag mapping
+
+| User intent | yt-dlp flags | Notes |
+|---|---|---|
+| Default / "video" / "download" | `-f "bv*+ba/b"` | Best video + best audio merged. Requires ffmpeg for separate streams. |
+| "audio" / "mp3" / "rip the audio" | `-x --audio-format mp3 --audio-quality 0` | Extract audio as MP3 at best quality. Requires ffmpeg. |
+| "playlist" / URL with `list=` AND user said "playlist" | `--yes-playlist` | See step 4 — confirm count first. |
+| Single video from playlist URL | `--no-playlist` | Default when the URL has `list=` but user did NOT say "playlist". |
+| "subtitles" / "subs" / "captions" | `--write-subs --sub-langs "en.*" --skip-download` | Downloads English `.vtt` files. Use `--sub-langs all` only if user explicitly asks for all languages. Add `--write-auto-subs` for auto-generated. |
+| "info" / "metadata" / "what's the title" | `--print "%(title)s" --print "%(uploader)s" --print "%(duration_string)s" --print "%(view_count)s views" --print "%(upload_date)s"` | No download. One `--print` per line — yt-dlp does not interpret `\n` inside a single template. For raw JSON, use `--dump-json` instead. |
+| "formats" / "what formats" / "list formats" | `-F` | Lists available formats; no download. |
+| Specific resolution e.g. "1080p" | `-f "bv*[height<=1080]+ba/b[height<=1080]"` | Substitute the requested height. Cap at requested or below. |
+| "best" | `-f "bv*+ba/b"` | Same as default. |
+| "worst" / "smallest" | `-f "worstvideo+worstaudio/worst"` | Worst quality, smallest file. |
+
+**Always include these baseline flags:**
+
+- `-o "$OUTPUT/%(title)s.%(ext)s"` — simple filename template. Expand `~` to `$HOME` first; `~` does NOT expand inside double quotes. Use `OUTPUT="${OUTPUT/#\~/$HOME}"` or just write `"$HOME/Downloads"` directly.
+- `--no-overwrites` — don't clobber existing files.
+- `--no-mtime` — use download time as file mtime (avoids confusing finder dates).
+
+### 4. Playlist safety check
+
+If intent is `playlist` (set in step 2 — only when the user said "playlist" or similar):
+
+1. Get the count first:
+   ```bash
+   yt-dlp --flat-playlist --skip-download --print "%(playlist_index)s" "<URL>" 2>/dev/null | wc -l | tr -d ' '
+   ```
+2. Use `AskUserQuestion` to confirm:
+   - Question: `"This playlist has N videos. Download all of them to <output-path>?"`
+   - Header: `"Confirm playlist"`
+   - Options: `"Download all"`, `"First 10 only"`, `"Cancel"`
+3. If `"First 10 only"`, add `--playlist-end 10` to the command.
+4. If `"Cancel"`, stop.
+
+Skip this confirmation step for non-playlist downloads.
+
+### 5. Build and run the command
+
+Construct the command from the chosen flags. Use `mkdir -p` to ensure the output path exists, then run yt-dlp.
+
+Example shape (do not just paste this — assemble from steps above). Expand `~` to `$HOME` before quoting:
+
+```bash
+mkdir -p "$HOME/Downloads"
+yt-dlp <flags> -o "$HOME/Downloads/%(title)s.%(ext)s" --no-overwrites --no-mtime "<URL>"
+```
+
+Stream the output so the user sees progress.
+
+### 6. Report results
+
+After the command finishes:
+
+- **Success**: state what was downloaded and where (`Downloaded to ~/Downloads/<filename>`). For info/formats requests, just show the output.
+- **Failure**: show the yt-dlp error verbatim, then a one-line interpretation if the cause is obvious (e.g. "Video is private/age-restricted/region-blocked", "ffmpeg not installed — needed for audio extraction"). Do not retry automatically.
+
+## Examples
+
+### Example 1 — Default video download (slash invocation)
+
+```
+User: /yt-dlp:download https://youtube.com/watch?v=dQw4w9WgXcQ
+```
+
+1. `command -v yt-dlp` ✓
+2. URL parsed, intent = video (default), output = `~/Downloads/`
+3. Not a playlist URL → skip playlist check
+4. Run: `mkdir -p ~/Downloads && yt-dlp -f "bv*+ba/b" -o "$HOME/Downloads/%(title)s.%(ext)s" --no-overwrites --no-mtime "https://youtube.com/watch?v=dQw4w9WgXcQ"`
+5. Report: `Downloaded to ~/Downloads/Never Gonna Give You Up.mp4`
+
+### Example 2 — Audio extraction (conversational)
+
+```
+User: rip the mp3 from https://youtube.com/watch?v=abc123
+```
+
+1. `command -v yt-dlp` ✓
+2. Intent = audio (user said "mp3")
+3. `command -v ffmpeg` ✓ (silent — only mention if missing)
+4. Run: `yt-dlp -x --audio-format mp3 --audio-quality 0 -o "$HOME/Downloads/%(title)s.%(ext)s" --no-overwrites --no-mtime "https://youtube.com/watch?v=abc123"`
+5. Report: `Downloaded audio to ~/Downloads/<title>.mp3`
+
+### Example 3 — Playlist with confirmation
+
+```
+User: download this playlist https://youtube.com/playlist?list=PLxyz
+```
+
+1. `command -v yt-dlp` ✓
+2. Intent = playlist
+3. Run count: `yt-dlp --flat-playlist --skip-download --print "%(playlist_index)s" "..." | wc -l` → 47
+4. Ask via AskUserQuestion: `"This playlist has 47 videos. Download all to ~/Downloads/?"` with `Download all` / `First 10 only` / `Cancel`
+5. User picks "First 10 only"
+6. Run: `yt-dlp --yes-playlist --playlist-end 10 -f "bv*+ba/b" -o "$HOME/Downloads/%(title)s.%(ext)s" --no-overwrites --no-mtime "..."`
+7. Report: `Downloaded 10 videos to ~/Downloads/`
+
+### Example 4 — Format inspection (no download)
+
+```
+User: what formats does https://youtube.com/watch?v=abc have?
+```
+
+1. `command -v yt-dlp` ✓
+2. Intent = formats
+3. Run: `yt-dlp -F "https://youtube.com/watch?v=abc"`
+4. Show the format table verbatim. Do not summarize unless asked.
+
+### Example 5 — Subtitles only
+
+```
+User: get subtitles from https://youtube.com/watch?v=abc
+```
+
+1. `command -v yt-dlp` ✓
+2. Intent = subtitles
+3. Run: `yt-dlp --write-subs --sub-langs "en.*" --skip-download -o "$HOME/Downloads/%(title)s.%(ext)s" "https://youtube.com/watch?v=abc"`
+4. If no manual subtitles exist, yt-dlp will say so. In that case, ask the user: "No manual subtitles available. Download auto-generated captions instead?" and if yes, re-run with `--write-auto-subs`.
+
+### Example 6 — Specific resolution
+
+```
+User: download https://youtube.com/watch?v=abc in 1080p
+```
+
+1. Intent = video at ≤1080p
+2. Run: `yt-dlp -f "bv*[height<=1080]+ba/b[height<=1080]" -o "$HOME/Downloads/%(title)s.%(ext)s" --no-overwrites --no-mtime "https://youtube.com/watch?v=abc"`
+
+### Example 7 — Custom output path
+
+```
+User: /yt-dlp:download https://youtube.com/watch?v=abc ~/Music/podcasts
+```
+
+1. Intent = video (default), output = `~/Music/podcasts`
+2. `mkdir -p "$HOME/Music/podcasts" && yt-dlp ... -o "$HOME/Music/podcasts/%(title)s.%(ext)s" ...`
+
+## Guidelines
+
+- **Never auto-install** `yt-dlp` or `ffmpeg`. Always print install instructions and stop.
+- **Never overwrite existing files** — `--no-overwrites` is non-negotiable.
+- **Quote URLs** in shell commands — they often contain `&`, `?`, `=` that the shell will mangle.
+- **Quote output paths** too — `~` expansion works unquoted, but spaces in custom paths break unquoted args. Prefer `"$HOME/Downloads"` style or quote the whole `-o` argument.
+- **Don't add `--no-warnings`** — warnings often explain why a download is degraded.
+- **Don't summarize `-F` output** unless the user asks — the table is the answer.
+- **Don't fetch metadata "just to be helpful"** before downloading. It doubles the network round-trips. Only fetch metadata when intent = info/formats, or when counting playlist entries.
+- **If the user passes flags directly** (e.g. `--cookies-from-browser firefox`), pass them through — assume they know what they're doing.

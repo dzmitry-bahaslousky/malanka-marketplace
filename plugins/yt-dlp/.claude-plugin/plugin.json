@@ -1,0 +1,10 @@
+{
+  "name": "yt-dlp",
+  "version": "0.1.0",
+  "description": "Download videos, audio, playlists, subtitles, and metadata from YouTube and any other yt-dlp-supported site",
+  "author": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "keywords": ["yt-dlp", "youtube", "video", "audio", "download"]
+}
