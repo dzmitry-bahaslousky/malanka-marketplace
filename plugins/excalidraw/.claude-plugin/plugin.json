@@ -1,9 +1,0 @@
-{
-  "name": "excalidraw",
-  "version": "0.1.0",
-  "description": "Create hand-drawn style diagrams with Excalidraw via the hosted MCP server",
-  "author": {
-    "name": "Dzmitry Bahaslouski",
-    "email": "dzmitry.bahaslouski.jcs@gmail.com"
-  }
-}

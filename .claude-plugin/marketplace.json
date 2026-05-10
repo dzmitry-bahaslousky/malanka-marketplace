@@ -11,16 +11,6 @@
   },
   "plugins": [
     {
-      "name": "java-spotless",
-      "source": "./plugins/java-spotless",
-      "description": "Automatically runs Spotless formatter on Java files after every edit or write",
-      "author": {
-        "name": "Dzmitry Bahaslouski",
-        "email": "dzmitry.bahaslouski.jcs@gmail.com"
-      },
-      "category": "development"
-    },
-    {
       "name": "note-taker",
       "source": "./plugins/note-taker",
       "description": "Transform meeting transcripts into structured notes with key points, decisions, action items, and follow-ups",
@@ -65,16 +55,6 @@
       "name": "yt-dlp",
       "source": "./plugins/yt-dlp",
       "description": "Download videos, audio, playlists, subtitles, and metadata from YouTube and any other yt-dlp-supported site via a single conversational skill",
-      "author": {
-        "name": "Dzmitry Bahaslouski",
-        "email": "dzmitry.bahaslouski.jcs@gmail.com"
-      },
-      "category": "productivity"
-    },
-    {
-      "name": "excalidraw",
-      "source": "./plugins/excalidraw",
-      "description": "Create hand-drawn style diagrams with Excalidraw — flowcharts, sequence diagrams, architecture diagrams, and more — rendered interactively via the hosted Excalidraw MCP server",
       "author": {
         "name": "Dzmitry Bahaslouski",
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
