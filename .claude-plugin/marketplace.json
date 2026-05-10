@@ -70,6 +70,16 @@
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
       "category": "productivity"
+    },
+    {
+      "name": "excalidraw",
+      "source": "./plugins/excalidraw",
+      "description": "Create hand-drawn style diagrams with Excalidraw — flowcharts, sequence diagrams, architecture diagrams, and more — rendered interactively via the hosted Excalidraw MCP server",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity"
     }
   ]
 }
