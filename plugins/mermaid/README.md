@@ -9,10 +9,6 @@ Render Mermaid diagrams in Claude Code with live reload. Preview flowcharts, seq
 - Export to SVG, PNG, or PDF
 - Multiple simultaneous diagrams via named preview IDs
 
-## Prerequisites
-
-- Node.js and npm installed
-
 ## Installation
 
 ```
@@ -27,7 +23,3 @@ Ask Claude to create any diagram:
 - "Draw a sequence diagram for the API auth flow"
 - "Generate an ER diagram for my database schema"
 - "Show the deployment pipeline as a diagram"
-
-## Credits
-
-MCP server by [Vitalii Elenhaupt](https://github.com/veelenga/claude-mermaid).

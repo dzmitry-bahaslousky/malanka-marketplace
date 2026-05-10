@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "claude-mermaid": {
-      "command": "npx",
-      "args": ["-y", "claude-mermaid"]
+    "mermaid-ai": {
+      "type": "sse",
+      "url": "https://mcp.mermaid.ai/sse"
     }
   }
 }
