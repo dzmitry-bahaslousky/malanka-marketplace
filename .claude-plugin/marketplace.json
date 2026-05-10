@@ -62,18 +62,14 @@
       "category": "productivity"
     },
     {
-      "name": "claude-mermaid",
-      "source": {
-        "source": "github",
-        "repo": "veelenga/claude-mermaid"
-      },
+      "name": "mermaid",
+      "source": "./plugins/mermaid",
       "description": "Render Mermaid diagrams in Claude Code with live reload — preview flowcharts, sequence diagrams, and architecture diagrams in real time",
       "author": {
-        "name": "Vitalii Elenhaupt",
-        "github": "veelenga"
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
-      "category": "visualization",
-      "homepage": "https://github.com/veelenga/claude-mermaid"
+      "category": "visualization"
     }
   ]
 }
