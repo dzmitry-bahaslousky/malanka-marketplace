@@ -30,21 +30,33 @@ Check if the user provided a commit title in the arguments:
 - **Title provided**: Use it as the commit title
 - **No title**: You will auto-generate both title and body in step 3
 
-### 3. Generate Commit Message
+### 3. Gather the "Why" From the User
 
 Run `git diff --staged` to analyze the changes.
 
-Based on whether a title was provided:
+**A diff only shows WHAT changed — not WHY.** The "why" is the most important part of a commit message, and you cannot reliably infer it from the diff alone. Before generating the message:
 
-**If title was provided by user**:
+1. Assess the staged diff: is the motivation **obvious and unambiguous** from the changes themselves?
+   - Obvious examples: typo fix in a visible string, removing a clearly dead import, fixing a syntax error.
+   - NOT obvious: feature additions, refactors, configuration changes, business-logic edits, dependency bumps, renames, new files.
+
+2. **If the "why" is not obvious, you MUST ask the user before drafting the message.** Use `AskUserQuestion` with a free-form prompt like:
+
+   > "I can see what changed in the diff, but not why. Could you briefly explain the motivation for this commit? (e.g., the problem it solves, the goal it achieves, or the requirement it addresses)"
+
+   Use the user's answer as the basis for the commit body / message. **Never invent or guess the "why."** If the user declines to provide one, generate only the "what" and omit the body rather than fabricate motivation.
+
+3. Once you have the motivation (either obvious from the diff, or provided by the user), draft the message:
+
+**If title was provided by user as argument**:
 - Use the provided title as-is
-- Analyze the staged diff to generate a body (2-4 lines explaining **why** these changes are needed — the motivation, problem solved, or goal achieved)
+- Build a body (2-4 lines) from the user-supplied "why" (or the obvious motivation), explaining the problem solved, goal achieved, or requirement addressed
 - Format as: `title\n\nbody`
 
 **If no title provided**:
 - Generate a brief one-line commit message focused on **why** the change exists, not what files changed
-- NO body needed
-- Keep it concise but meaningful (e.g., "Allow users to log in without re-entering credentials", "Prevent crashes on empty input")
+- If the user supplied longer reasoning, add a 1-3 line body underneath
+- Keep the title concise but meaningful (e.g., "Allow users to log in without re-entering credentials", "Prevent crashes on empty input")
 
 **Message generation guidelines**:
 - Use imperative mood ("Add" not "Added", "Fix" not "Fixed")
@@ -52,7 +64,7 @@ Based on whether a title was provided:
 - Use natural language (e.g., "Allow password reset via email" not "feat: Add password reset")
 - Focus on the **reason** for the change — the problem, requirement, or improvement that motivated it
 - Avoid describing the implementation or listing files; that's visible in the diff
-- For body: Explain the problem that existed before, what goal this achieves, or why this approach was chosen
+- For body: Explain the problem that existed before, what goal this achieves, or why this approach was chosen — sourced from the user's stated motivation, not invented
 - **Do NOT add any Claude Code attribution, co-author tags, or tool mentions** (no "Generated with Claude Code", no "Co-Authored-By", no emoji attributions)
 
 ### 4. Get Staged Files List
@@ -126,7 +138,8 @@ Ready to commit?
 - If any git command fails, show the error and stop
 - Preserve exact formatting and line breaks in commit messages
 - The body should explain **why** the change was made, not what was changed — the diff already shows what
-- **NEVER add Claude Code attribution, co-author tags, emoji attributions, or any tool mentions to commit messages** - use only the commit message generated from the diff analysis
+- **The "why" cannot be inferred from a diff.** If it isn't unambiguously obvious, ask the user via AskUserQuestion before drafting the message. Never invent motivation.
+- **NEVER add Claude Code attribution, co-author tags, emoji attributions, or any tool mentions to commit messages** - use only the commit message generated from the diff analysis and the user-supplied motivation
 
 ## Examples
 
@@ -137,10 +150,12 @@ User: /git-commit "Add user authentication"
 Steps:
 1. Check git status ✓
 2. Title provided: "Add user authentication"
-3. Generate body from git diff --staged
-4. Show preview with files
-5. User confirms
-6. Commit
+3. Inspect diff — motivation not obvious; ask user for the "why"
+   User: "Required by SOC2 audit — anonymous access to /admin must end."
+4. Build body from user's answer; format title + body
+5. Show preview with files
+6. User confirms
+7. Commit
 ```
 
 ### Example 2: Auto-generate everything
@@ -150,12 +165,25 @@ User: /git-commit
 Steps:
 1. Check git status ✓
 2. No title provided
-3. Generate one-line message: "Allow users to stay logged in across sessions"
-4. Show preview with files
-5. User edits message
-6. Show preview again
-7. User confirms
-8. Commit
+3. Inspect diff — motivation not obvious; ask user
+   User: "Users were getting logged out on every page reload."
+4. Generate message: "Persist session across page reloads"
+   Body: "Users were logged out on every reload, breaking the SPA experience."
+5. Show preview with files
+6. User confirms
+7. Commit
+```
+
+### Example 2b: Obvious "why" from the diff
+```
+User: /git-commit
+
+Steps:
+1. Check git status ✓
+2. No title provided
+3. Inspect diff — only change is `recieve` → `receive` in a UI string; motivation is self-evident (typo)
+4. Skip the "why" question; generate "Fix typo in confirmation banner"
+5. Show preview, user confirms, commit
 ```
 
 ### Example 3: No staged files
