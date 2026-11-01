@@ -32,6 +32,18 @@ After install, run `/mcp` in Claude Code and confirm `anki-mcp` is connected. Th
 - "Add a card to the 'Spanish' deck: front 'hola', back 'hello'"
 - "Show me cards due for review today"
 
+## Skills
+
+### `/anki:make-cards`
+
+Give it a topic, page, artifact, file, or pasted text and it drafts the 10-15 questions most worth remembering (more if you ask to go deeper). It reads your collection first, so it skips what you already have, picks the deck and tags that fit, and suggests a new deck only when nothing fits. Answers are plain and written so you understand the idea, and most come with an SVG illustration.
+
+You review the draft on a preview page before anything is written to Anki.
+
+- "make anki cards for Kubernetes networking"
+- "turn this page into qqs: ~/notes/chargebacks.md"
+- "go deeper on Istio traffic management"
+
 ## Troubleshooting
 
 - **Connection refused**: Anki isn't running, or AnkiConnect isn't installed.
