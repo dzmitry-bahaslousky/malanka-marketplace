@@ -71,6 +71,16 @@
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
       "category": "visualization"
+    },
+    {
+      "name": "learn",
+      "source": "./plugins/learn",
+      "description": "Skills for learning and understanding topics — turn any topic or material into a clear, illustrated explainer page",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity"
     }
   ]
 }
