@@ -11,7 +11,7 @@ All Anki access goes through `scripts/anki.py` in this skill's base directory (c
 
 ## 1. Read the material
 
-Work from what the user provided: read the file, page, artifact, or pasted text in full. If they gave only a topic name, use what you know, and look it up when it is recent or version-specific. Facts on these cards get drilled for years, so a wrong one is expensive: when you are unsure of a detail, verify it or leave it out.
+Work from what the user provided: read the file, page, artifact, or pasted text in full. If they named no material but this conversation has `◆ Anki` suggestion blocks, the material is those suggestions plus the discussion around them. Use the ones the user picked, or all of them if they didn't pick. The suggested questions are seeds: rework, merge, or replace them like any other draft, and add the questions they leave out. If they gave only a topic name, use what you know, and look it up when it is recent or version-specific. Facts on these cards get drilled for years, so a wrong one is expensive: when you are unsure of a detail, verify it or leave it out.
 
 Don't ask scoping questions up front. The draft is the question: it's cheaper for the user to react to real cards than to answer a questionnaire.
 

@@ -44,6 +44,21 @@ You review the draft on a preview page before anything is written to Anki.
 - "turn this page into qqs: ~/notes/chargebacks.md"
 - "go deeper on Istio traffic management"
 
+## Card suggestions
+
+Like the Insight blocks of the explanatory output style, the plugin adds a `SessionStart` hook (`hooks/suggest-cards.md`) that asks Claude to watch the conversation for things worth remembering: a mechanism you asked about, a misconception, a gotcha, a tradeoff, a new concept. When one comes up, Claude ends its response with a few suggested card questions:
+
+```
+◆ Anki ────────────────────────────────────────
+- **Kafka**: Why does Kafka guarantee order only within a partition?
+→ /anki:make-cards to turn these into cards
+─────────────────────────────────────────────────
+```
+
+It skips project-specific details, trivia, and routine work, so most responses have no block. Nothing is written to Anki: run `/anki:make-cards` (or just say "make cards for these") and the skill drafts cards from the suggestions and the discussion around them.
+
+To tune what gets suggested, edit `hooks/suggest-cards.md`; to turn suggestions off, remove `hooks/hooks.json`.
+
 ## Troubleshooting
 
 - **Connection refused**: Anki isn't running, or AnkiConnect isn't installed.

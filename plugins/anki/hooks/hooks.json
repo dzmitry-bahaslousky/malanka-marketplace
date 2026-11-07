@@ -1,0 +1,15 @@
+{
+  "description": "Suggests Anki card questions when a conversation surfaces something worth remembering",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/suggest-cards.md\""
+          }
+        ]
+      }
+    ]
+  }
+}
