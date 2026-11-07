@@ -81,6 +81,16 @@
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
       "category": "productivity"
+    },
+    {
+      "name": "database-bundle",
+      "source": "./plugins/database-bundle",
+      "description": "Database tools — a read-only database reviewer agent for PostgreSQL, MySQL, SQLite and other SQL databases, plus production-safe PostgreSQL patterns",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "development"
     }
   ]
 }
