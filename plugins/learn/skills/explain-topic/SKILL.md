@@ -38,7 +38,15 @@ Reach for edge cases, misconceptions, tradeoffs, history, or a recap when they d
 
 Depth check before publishing: could a reader answer "why?" one level below each main claim? If not, add that level.
 
-## 4. Build the artifact
+## 4. Link official sources
+
+When the page states a specific fact (a number, a date, a guarantee, a rule of how the thing behaves) or tells an interesting event from its history, link the official source so the reader can check it and go deeper. Not every sentence needs a link. General explanations and your own analogies don't.
+
+- **Official only.** That means the project's or vendor's own documentation, the specification or standard (RFCs, W3C/WHATWG, ISO, language specs), the original paper by the authors, or a primary announcement (release notes, the authors' own post or talk). No third-party blogs, tutorials, Medium, Stack Overflow, or Wikipedia.
+- **Verify every link before you use it.** Find it with a search or fetch, open it, and make sure it says what you cite it for. Link to the exact section (an anchor) when you can. Never write a URL from memory without checking it. If you can't find an official source for a claim, leave the link out. Don't use a weaker source instead.
+- **On the page:** put a small inline link right next to the claim it supports, and add a short "Sources & further reading" list at the end. Give each entry its title and one line on what the reader will get from it.
+
+## 5. Build the artifact
 
 Follow the Artifact tool's own workflow: run `quickstart` (intent `other`), and load `artifact-design` (or use the quickstart's design guidance). Load `artifact-diagramming` by default: this page should be illustrated generously.
 
@@ -51,6 +59,6 @@ Page-specific guidance:
 
 Save the HTML in the scratchpad directory (or where the user asks), publish it, and send the link.
 
-## 5. Reply in chat
+## 6. Reply in chat
 
-Keep it short: the link, 2–3 lines on what the page covers, and anything you flagged (gaps in their material, claims you corrected, parts you filled in from general knowledge). Offer to save a condensed version as a vault note if they're working in Obsidian.
+Keep it short: the link, 2–3 lines on what the page covers, and anything you flagged (gaps in their material, claims you corrected, parts you filled in from general knowledge, claims you could not find an official source for). Offer to save a condensed version as a vault note if they're working in Obsidian.

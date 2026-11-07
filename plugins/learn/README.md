@@ -11,6 +11,7 @@ Turns a topic and any material you give it into a published explainer page: simp
 - Accepts notes, pasted text, a vault note, a doc, a transcript, or just a topic name
 - Moves from the high-level idea down to why it works this way
 - Writes in the language you wrote in
+- Links official documentation and primary sources for key facts and historical events
 
 ## Usage
 
