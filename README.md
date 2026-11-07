@@ -128,7 +128,7 @@ Validate your marketplace structure:
 
 ```bash
 # Repo checks (also run in CI on every push and pull request)
-node scripts/validate.js
+node .github/scripts/validate.js
 
 # Using Claude Code
 /plugin validate .

@@ -30,4 +30,4 @@ jobs:
           node-version: '22.x'
 
       - name: Validate marketplace and plugins
-        run: node scripts/validate.js
+        run: node .github/scripts/validate.js
