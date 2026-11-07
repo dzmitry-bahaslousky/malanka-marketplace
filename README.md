@@ -4,21 +4,28 @@ A plugin marketplace for Claude Code, providing a curated collection of plugins 
 
 ## Overview
 
-This marketplace serves as a centralized catalog for distributing Claude Code plugins. Currently featuring plugins for Git workflow automation and ISO20022 financial messaging standards. Plugins can be added to this marketplace and distributed to teams and communities via GitHub.
+This marketplace serves as a centralized catalog for distributing Claude Code plugins. Plugins can be added to this marketplace and distributed to teams and communities via GitHub.
 
 ## Available Plugins
 
-### Git Plugin
+Add the marketplace once:
 
-Enhanced Git workflow automation with intelligent commit generation, code review, and branch management.
-
-**Commands:**
-- `/commit [optional title]` - Create Git commits with auto-generated messages based on staged changes. Includes interactive preview and editing before committing.
-
-**Installation:**
 ```bash
-/plugin install git@malanka-marketplace
+/plugin marketplace add dzmitry-bahaslousky/malanka-marketplace
 ```
+
+Then install the plugins you want:
+
+| Plugin | What it does | Install |
+|--------|--------------|---------|
+| [note-taker](plugins/note-taker) | Turns meeting and lecture transcripts into structured notes | `/plugin install note-taker@malanka-marketplace` |
+| [git](plugins/git) | `/commit` with auto-generated messages and a preview | `/plugin install git@malanka-marketplace` |
+| [notebooklm](plugins/notebooklm) | Works with Google NotebookLM: notebooks, sources, audio overviews, quizzes | `/plugin install notebooklm@malanka-marketplace` |
+| [anki](plugins/anki) | Makes illustrated Anki cards that fit your collection; AnkiConnect MCP | `/plugin install anki@malanka-marketplace` |
+| [yt-dlp](plugins/yt-dlp) | Downloads video, audio, playlists, subtitles and metadata | `/plugin install yt-dlp@malanka-marketplace` |
+| [mermaid](plugins/mermaid) | Renders Mermaid diagrams with live reload | `/plugin install mermaid@malanka-marketplace` |
+| [learn](plugins/learn) | Turns a topic or material into an illustrated explainer page | `/plugin install learn@malanka-marketplace` |
+| [database-bundle](plugins/database-bundle) | Read-only SQL reviewer agent and PostgreSQL playbook | `/plugin install database-bundle@malanka-marketplace` |
 
 ## Adding Plugins to This Marketplace
 
@@ -120,6 +127,9 @@ Add plugin entries that reference external repositories:
 Validate your marketplace structure:
 
 ```bash
+# Repo checks (also run in CI on every push and pull request)
+node scripts/validate.js
+
 # Using Claude Code
 /plugin validate .
 

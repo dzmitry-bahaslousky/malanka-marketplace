@@ -14,7 +14,7 @@ Comprehensive Git workflow automation with intelligent commit creation, AI-power
 ## Installation
 
 ```bash
-cc --plugin-dir /Users/jcs/VSCode/malanka-marketpalce/plugins/git
+/plugin install git@malanka-marketplace
 ```
 
 Or copy to your project's `.claude/` directory.
