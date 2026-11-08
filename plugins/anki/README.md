@@ -57,7 +57,7 @@ Like the Insight blocks of the explanatory output style, the plugin adds a `Sess
 
 It skips project-specific details, trivia, and routine work, so most responses have no block. Nothing is written to Anki: run `/anki:make-cards` (or just say "make cards for these") and the skill drafts cards from the suggestions and the discussion around them.
 
-To tune what gets suggested, edit `hooks/suggest-cards.md`; to turn suggestions off, remove `hooks/hooks.json`.
+To tune what gets suggested, edit `hooks/suggest-cards.md`. To turn suggestions off, set the plugin's **Suggest Anki cards** option (`suggest_cards`) to `false` in its settings under `/plugin`; the skill and MCP tools keep working. The change applies from the next session.
 
 ## Troubleshooting
 
