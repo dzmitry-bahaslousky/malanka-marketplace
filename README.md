@@ -24,7 +24,7 @@ Then install the plugins you want:
 | [anki](plugins/anki) | Makes illustrated Anki cards that fit your collection; AnkiConnect MCP | `/plugin install anki@malanka-marketplace` |
 | [yt-dlp](plugins/yt-dlp) | Downloads video, audio, playlists, subtitles and metadata | `/plugin install yt-dlp@malanka-marketplace` |
 | [mermaid](plugins/mermaid) | Renders Mermaid diagrams with live reload | `/plugin install mermaid@malanka-marketplace` |
-| [learn](plugins/learn) | Turns a topic or material into an illustrated explainer page | `/plugin install learn@malanka-marketplace` |
+| [learn](plugins/learn) | Explains a concept in a short structured chat answer, or a topic as an illustrated explainer page | `/plugin install learn@malanka-marketplace` |
 | [database-bundle](plugins/database-bundle) | Read-only SQL reviewer agent and PostgreSQL playbook | `/plugin install database-bundle@malanka-marketplace` |
 
 ## Adding Plugins to This Marketplace

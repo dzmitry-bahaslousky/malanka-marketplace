@@ -75,7 +75,7 @@
     {
       "name": "learn",
       "source": "./plugins/learn",
-      "description": "Skills for learning and understanding topics — turn any topic or material into a clear, illustrated explainer page",
+      "description": "Skills for learning and understanding topics — explain any concept in a short structured chat answer or a clear, illustrated explainer page",
       "author": {
         "name": "Dzmitry Bahaslouski",
         "email": "dzmitry.bahaslouski.jcs@gmail.com"

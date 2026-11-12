@@ -4,25 +4,33 @@ Skills for learning and understanding topics.
 
 ## Skills
 
-### explain-topic
+### explain
 
-Turns a topic and any material you give it into a published explainer page: simple language, deep content, plenty of illustrations.
+Explains a concept or a whole topic in simple language without losing depth. It picks one of two forms:
 
-- Accepts notes, pasted text, a vault note, a doc, a transcript, or just a topic name
+- **Chat answer** (default): a short structured explanation of one idea: what it is, why it exists, a small example, how it works on that example, and one thing to be careful about.
+- **Page**: a published explainer page with plenty of illustrations, for big topics or when you ask for one.
+
+Both forms:
+
+- Accept notes, pasted text, a vault note, a doc, a transcript, or just a name
+- Start from what you already know and explain the exact part you are stuck on
+- Write in the language you wrote in
+
+The page also:
+
 - Moves from the high-level idea down to why it works this way
-- Writes in the language you wrote in
 - Links official documentation and primary sources for key facts and historical events
-- Starts from what you already know and builds the page around your question
 - Adds a few "predict first" questions with hidden answers
 - Updates the same page when you ask follow-ups
 
 ## Usage
 
 ```
-/learn:explain-topic [topic, pasted material, or file path]
+/learn:explain [concept, topic, pasted material, or file path]
 ```
 
-It also triggers on requests like "make an explainer of X", "deep dive into X", or "разбери тему X". For a quick "explain X" in the middle of other work, Claude answers in chat and offers the page.
+It also triggers on requests like "explain X", "I don't get X", "объясни X" (chat answer), and "make an explainer of X", "deep dive into X", "разбери тему X" (page). After a chat answer you can ask for "simpler", "deeper", "another example", or the full page.
 
 ## Installation
 
