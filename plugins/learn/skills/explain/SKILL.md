@@ -1,6 +1,6 @@
 ---
 name: explain
-description: Explain a concept, idea, term, or whole topic simply but deeply, in one of two forms - a short structured answer in chat, or a published Artifact (HTML page) for big topics. Use whenever the user wants to understand something - "explain X", "what is X", "I don't get X", "why does X work this way", "объясни X", "не понимаю X", "что такое X" - including when they are stuck on one idea while reading or reviewing material, and when they ask for an explainer, deep dive, breakdown, or page ("make an explainer of X", "deep dive into X", "разбери тему X", "сделай разбор X") or share material and want it turned into a clear explanation. Grounded in the material the user provides - notes, pasted text, a vault note, a doc, a transcript, or just a name plus context. Not for flashcards.
+description: Explain a concept, term, or topic in simple words without losing depth. Use whenever the user wants to understand something ("explain X", "what is X", "I don't get X", "why does X work this way", "объясни X", "не понимаю X"), including when they are stuck on one idea while reading or reviewing. Gives a short structured answer in chat. Builds an illustrated Artifact page instead when they ask for an explainer, deep dive, or breakdown ("разбери тему X"), or share material to turn into one. Not for flashcards.
 ---
 
 # Explain
