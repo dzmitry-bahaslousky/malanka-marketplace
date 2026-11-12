@@ -36,7 +36,7 @@ After install, run `/mcp` in Claude Code and confirm `anki-mcp` is connected. Th
 
 ### `/anki:make-cards`
 
-Give it a topic, page, artifact, file, or pasted text and it drafts the 10-15 questions most worth remembering (more if you ask to go deeper). It reads your collection first, so it skips what you already have, picks the deck and tags that fit, and suggests a new deck only when nothing fits. Answers are plain and written so you understand the idea, and most come with an SVG illustration.
+Give it a topic, page, artifact, file, or pasted text and it drafts the 10-15 questions most worth remembering (more if you ask to go deeper). It reads your collection first, so it skips what you already have, picks the deck and tags that fit, and suggests a new deck only when nothing fits. Each answer opens with the one point you need to recall, followed by a plain explanation of why, and most come with an SVG illustration.
 
 You review the draft on a preview page before anything is written to Anki.
 

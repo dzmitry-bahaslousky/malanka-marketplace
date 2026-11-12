@@ -44,19 +44,22 @@ Order the set so basics come before what depends on them.
 
 Each card is a Basic note (front and back) testing one idea.
 
-**Front:** a short, specific question with one right answer, ideally under 70 characters and with no filler. "Why doesn't deleting images free disk space in Harbor?" beats "What can you tell me about Harbor storage?".
+**Front:** a short, specific question with one right answer, ideally under 70 characters and with no filler. "Why doesn't deleting images free disk space in Harbor?" beats "What can you tell me about Harbor storage?". The answer is the point that opens the back, so if you can't state that point in a sentence, narrow the question.
 
-**Back:** explain the idea the way you would to a smart friend who's new to this.
+**Back:** the point to recall first, then the explanation that makes it stick.
 
-- Understanding comes first, so there's no length limit: use as many words as the idea needs to make sense, and no more. Start with the point itself, then explain it. A picture helps, but the words should work on their own.
+- Open with the point: what the user has to say to count the card as recalled, as one bold sentence in its own `<p>`. Don't label it ("Answer:", "Key point:"); it is simply the first line. A paragraph only feels familiar on review, while a point can be checked in seconds: either the user said it or they didn't.
+- One point is the default. Two or three are fine only as a chain, where each follows from the one before ("the database changes, so scans must be repeated"), because a chain is recalled as one thought. Points that don't depend on each other ("three benefits of X") go on separate cards: recalling two of three has no honest grade.
+- Put the reason inside the point when there is one: "X, because Y" tests understanding, a bare "X" tests wording.
+- Below the point, explain the idea the way you would to a smart friend who's new to this. This part is read when the point was missed, so there's no length limit: use as many words as the idea needs to make sense, and no more. A picture helps, but the words should work on their own.
+- Use a concrete example or an everyday analogy in the explanation when that's what makes the idea click.
 - Use plain words. Define or avoid jargon. If a technical term is needed, say what it means in passing.
-- Give the reason, not just the fact: "because..." is what makes it stick.
-- Use a concrete example or an everyday analogy when that's what makes the idea click.
-- Wrap text in `<p>`, code in `<code>`. For "X vs Y" questions, a small `<table>` often beats sentences. If it holds the whole answer, it replaces the picture rather than sitting beside one that says the same thing.
+- Wrap text in `<p>`, code in `<code>`. For "X vs Y" questions, a small `<table>` under the point often beats sentences. If it holds the whole explanation, it replaces the picture rather than sitting beside one that says the same thing.
 
 ```
 Front: Why can an image with a clean scan become vulnerable later?
-Back:  <p>The image can't change, but the vulnerability database does. New CVEs appear for software already inside it, so you need scheduled scans as well as scan-on-push.</p>
+Back:  <p><b>The image never changes, but the vulnerability database does, so scans have to be repeated on a schedule.</b></p>
+       <p>A scan compares the software inside the image with the list of flaws known that day. New flaws (CVEs) are found later in software that was already there. It's like a medicine that passed inspection last year: the pills are the same, but a new study has since found a side effect. Scanning only on push checks each image once and never again.</p>
 ```
 
 **Language:** English, like all of the user's cards since mid-2025, unless they ask otherwise or write the request in Russian.

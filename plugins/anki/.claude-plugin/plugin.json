@@ -1,6 +1,6 @@
 {
   "name": "anki",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Turn topics and pages into simple, illustrated Anki cards that fit your collection, plus AnkiConnect MCP access to decks and cards",
   "author": {
     "name": "Dzmitry Bahaslouski",
