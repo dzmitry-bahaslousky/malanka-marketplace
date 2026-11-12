@@ -12,6 +12,9 @@ Turns a topic and any material you give it into a published explainer page: simp
 - Moves from the high-level idea down to why it works this way
 - Writes in the language you wrote in
 - Links official documentation and primary sources for key facts and historical events
+- Starts from what you already know and builds the page around your question
+- Adds a few "predict first" questions with hidden answers
+- Updates the same page when you ask follow-ups
 
 ## Usage
 
@@ -19,7 +22,7 @@ Turns a topic and any material you give it into a published explainer page: simp
 /learn:explain-topic [topic, pasted material, or file path]
 ```
 
-It also triggers on requests like "explain X", "help me understand X", or "объясни X".
+It also triggers on requests like "make an explainer of X", "deep dive into X", or "разбери тему X". For a quick "explain X" in the middle of other work, Claude answers in chat and offers the page.
 
 ## Installation
 
