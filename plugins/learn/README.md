@@ -19,6 +19,7 @@ Both forms:
 
 The page also:
 
+- Is written for a newcomer: it explains every concept the topic rests on (a Kubernetes page explains containers too)
 - Moves from the high-level idea down to why it works this way
 - Links official documentation and primary sources for key facts and historical events
 - Adds a few "predict first" questions with hidden answers

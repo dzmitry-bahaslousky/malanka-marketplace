@@ -33,6 +33,8 @@ Before writing, work out two things from the user's message, their material, and
 
 If nothing shows their level, write for a smart beginner: someone bright who has not met this topic before.
 
+A page is different: it gets shared and reread, so always write it for a smart beginner, even when the user clearly knows the basics. Still build it around the question they came with.
+
 ## 4. Language and voice
 
 - Write in the language the user wrote in (Russian or English). Keep standard technical terms in their usual form and explain each one the first time it appears.
@@ -50,7 +52,7 @@ Use this shape, in this order. Give each part a short bold label in the user's l
 
 1. **In short.** One or two sentences in everyday words, with no new terms. A reader who stops here should still get the gist.
 2. **The problem.** A concrete situation where things go wrong without this idea. The reader should want the solution before they see it.
-3. **What you need first.** Anything the idea rests on that the reader may not know, one line each. Skip this part when there is nothing.
+3. **What you need first.** Anything the idea rests on that the reader may not know, one line each. When in doubt, include it. Skip this part only when the reader has clearly shown they know everything the idea rests on.
 4. **How it works.** One small example with real-looking values, walked through as a numbered list. Each step adds exactly one new thing and follows from the step before it.
 5. **Careful.** One common misconception, or the place where the idea or your analogy stops being true.
 
@@ -78,6 +80,17 @@ Read the answer once as someone who has never met the topic, and fix what you fi
 ## 6. Page
 
 Turn the topic into one explainer page that this reader can read top to bottom.
+
+### Map what it rests on
+
+Before writing, list every concept the topic rests on. For each one, ask what *it* rests on, and keep going until you reach ground: things anyone who uses a computer already knows, such as a program, a file, a website, or a server. Everything above ground gets explained on the page. Never assume the reader knows it.
+
+Example: a page on Kubernetes rests on "container", which rests on "process" and "operating system". All three get explained. "Program" is ground.
+
+Explain each one where it fits:
+
+- **A small term** (one sentence is enough): explain it in plain words at its first use.
+- **A bigger concept** (needs a paragraph or a picture): put it in a short "Before you start" section near the top, with a small diagram where it helps, inside a `<details>` element that is open by default, so a reader who knows it can collapse it and move on. Explain these in dependency order: "process" before "container".
 
 ### Shape
 
@@ -125,10 +138,11 @@ Save the HTML in the scratchpad directory (or where the user asks).
 Read the finished page once as the reader from section 3, and fix what you find:
 
 - **Depth.** Could the reader answer "why?" one level below each main claim? If not, add that level.
-- **Order.** Is every term explained at or before its first use? Does any section lean on an idea that comes later?
+- **Ground.** Go through the page term by term. Would someone who has never worked in this field know each term without the page? If not, is it explained at or before its first use? Treat nothing as "everyone knows this" unless it is ground.
+- **Order.** Does any section lean on an idea that comes later?
 - **Examples.** Recompute every worked example by hand or with a quick script. Check that values carried from one step to the next still match. Wrong numbers in an example are the most common error on these pages, and the one that confuses readers most.
 - **Pictures.** Does each diagram show what the text beside it says, with the same names, values, and order of steps?
-- **Reader.** Does the page start where this reader's understanding stops, and answer the question they came with?
+- **Reader.** Could a smart beginner follow the page from the first line, and does it answer the question this user came with?
 
 Then publish it and send the link.
 
