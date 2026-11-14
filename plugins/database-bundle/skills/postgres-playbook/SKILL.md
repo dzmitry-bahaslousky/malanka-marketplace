@@ -7,15 +7,6 @@ description: Practical PostgreSQL guidance — column types, indexing, query pat
 
 How to design, query, and change PostgreSQL databases without surprises in production. For a full review of schemas, migrations, or queries, use the `sql-reviewer` agent from this plugin.
 
-## When to Use
-
-- Creating or altering tables, indexes, or constraints
-- Writing a migration that will run on a live database
-- A query is slow and you need to find out why
-- Adding row-level security or tenant isolation
-- Configuring a connection pooler, timeouts, or server settings
-- Running any SQL against a shared, staging, or production database
-
 ## Before Touching a Live Database
 
 These rules come first, because a mistake against production is the expensive kind.
@@ -23,7 +14,14 @@ These rules come first, because a mistake against production is the expensive ki
 1. **Look before you change.** Investigate with a read-only role, or inside `BEGIN READ ONLY; … ROLLBACK;`.
 2. **Ask first.** Any write, schema change, or `ALTER SYSTEM` needs explicit confirmation from the user, naming the host and database it will run on.
 3. **`EXPLAIN ANALYZE` runs the query for real.** Start with plain `EXPLAIN`. If you need actual timings for an `INSERT`, `UPDATE`, or `DELETE`, run it inside `BEGIN; … ROLLBACK;`.
-4. **Put a ceiling on every session:** `SET statement_timeout = '30s'; SET lock_timeout = '5s';`.
+4. **Put a ceiling on every investigation session.** Each `psql -c` call is a new session, so a `SET` from one call is gone in the next. Pass the limits and the read-only default with the connection instead:
+
+   ```bash
+   PGOPTIONS='-c default_transaction_read_only=on -c statement_timeout=30s -c lock_timeout=5s' \
+     psql -X -v ON_ERROR_STOP=1 -c 'SELECT …'
+   ```
+
+   Migrations are the exception: keep `lock_timeout`, but lift `statement_timeout` for index builds and constraint validation, which legitimately run for minutes (see "Changing Schema on Live Tables").
 5. **Keep secrets out of sight.** Take credentials from `PGHOST`/`PGUSER`/`PGDATABASE` and `~/.pgpass`. Never pass a password on the command line (it shows up in shell history and process lists) and never print it.
 
 ## Picking Column Types
@@ -65,6 +63,19 @@ CREATE INDEX CONCURRENTLY accounts_email_idx ON accounts (email) INCLUDE (displa
 CREATE INDEX CONCURRENTLY accounts_live_email_idx ON accounts (email) WHERE archived_at IS NULL;
 ```
 
+**Index the expression you filter on.** An index on `email` does not serve `WHERE lower(email) = $1`; index the expression itself:
+
+```sql
+CREATE INDEX CONCURRENTLY accounts_lower_email_idx ON accounts (lower(email));
+```
+
+**Substring search needs a trigram index.** B-tree only helps `LIKE 'abc%'`. For `LIKE '%abc%'` or `ILIKE`, use `pg_trgm`:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE INDEX CONCURRENTLY accounts_name_trgm_idx ON accounts USING gin (display_name gin_trgm_ops);
+```
+
 **Foreign keys are not indexed automatically.** Without an index on the referencing column, deleting a parent row scans the whole child table. Index FK columns that are joined on or whose parents get deleted.
 
 **Every index has a cost.** Each one slows writes and takes space. Add indexes for access paths the application actually uses, and drop ones that are never scanned.
@@ -83,6 +94,16 @@ ON CONFLICT (account_id, name) DO UPDATE SET value = EXCLUDED.value;
 
 ```sql
 SELECT * FROM invoices WHERE id > $1 ORDER BY id LIMIT 50;
+```
+
+When sorting by a column that is not unique, add the key as a tie-breaker and compare both as a row, backed by an index on the same columns:
+
+```sql
+SELECT * FROM invoices
+WHERE (created_at, id) > ($1, $2)
+ORDER BY created_at, id
+LIMIT 50;
+-- supporting index: (created_at, id)
 ```
 
 **Job queue on a plain table.** `SKIP LOCKED` lets many workers each grab a different row without waiting on each other:
@@ -105,12 +126,19 @@ CREATE INDEX CONCURRENTLY jobs_queued_idx ON jobs (enqueued_at) WHERE state = 'q
 
 ```sql
 ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+ALTER TABLE invoices FORCE ROW LEVEL SECURITY;
 CREATE POLICY invoices_by_owner ON invoices
-  USING (owner_id = (SELECT current_setting('app.account_id')::bigint));
+  USING (owner_id = (SELECT NULLIF(current_setting('app.account_id', true), '')::bigint));
 CREATE INDEX CONCURRENTLY invoices_owner_idx ON invoices (owner_id);
 ```
 
 On Supabase, use `(SELECT auth.uid())` in place of the `current_setting` call.
+
+Three ways this goes wrong quietly:
+
+- **The policy is skipped.** The table's owner bypasses policies unless `FORCE ROW LEVEL SECURITY` is set, and superusers and `BYPASSRLS` roles always do. An application that connects as the role that ran the migrations usually owns the tables. Connect it as a separate, non-owner role.
+- **The setting is missing.** Without the second argument `true`, `current_setting` raises an error when the setting was never set. After a `SET LOCAL` has ended, the setting reads as an empty string, not NULL, so the cast fails without `NULLIF`. Written as above, a missing tenant matches no rows.
+- **The tenant leaks to another client.** Set it per transaction — `SET LOCAL app.account_id = '42'` or `set_config('app.account_id', '42', true)` — never with a plain `SET`. Behind a transaction pooler a plain `SET` stays on the server connection and applies to the next client that gets it.
 
 ## Changing Schema on Live Tables
 
@@ -122,13 +150,15 @@ The danger in a migration is usually the lock, not the change. A statement that 
 SET lock_timeout = '5s';   -- retry later rather than block traffic
 ```
 
+Do not cap these statements with a short `statement_timeout`. `lock_timeout` only limits the wait for the lock; `statement_timeout` limits the work itself and would cancel a healthy index build halfway.
+
 **Build indexes without blocking writes:**
 
 ```sql
 CREATE INDEX CONCURRENTLY invoices_due_idx ON invoices (due_at);
 ```
 
-It cannot run inside a transaction block. If it fails, it leaves an `INVALID` index behind — remove it with `DROP INDEX CONCURRENTLY invoices_due_idx;` and try again.
+It cannot run inside a transaction block, and most migration tools wrap each migration in one — turn that off for this migration (Flyway `executeInTransaction=false`, Liquibase `runInTransaction="false"`, Alembic `autocommit_block()`, Rails `disable_ddl_transaction!`, Django `atomic = False`). If it fails or is cancelled, it leaves an `INVALID` index behind — remove it with `DROP INDEX CONCURRENTLY invoices_due_idx;` and try again.
 
 **Add a foreign key in two steps** — the first is instant, the second checks existing rows under a lighter lock:
 
@@ -136,6 +166,13 @@ It cannot run inside a transaction block. If it fails, it leaves an `INVALID` in
 ALTER TABLE invoices ADD CONSTRAINT invoices_owner_fk
   FOREIGN KEY (owner_id) REFERENCES accounts (id) NOT VALID;
 ALTER TABLE invoices VALIDATE CONSTRAINT invoices_owner_fk;
+```
+
+**Add a unique constraint in two steps** — build the index without blocking writes, then attach it:
+
+```sql
+CREATE UNIQUE INDEX CONCURRENTLY accounts_email_key ON accounts (email);
+ALTER TABLE accounts ADD CONSTRAINT accounts_email_key UNIQUE USING INDEX accounts_email_key;
 ```
 
 **Make a column `NOT NULL` without a long lock** (PostgreSQL 12+ reuses the validated check):
@@ -153,7 +190,25 @@ ALTER TABLE invoices DROP CONSTRAINT invoices_owner_present;
 - Adding a column whose default is volatile, such as `DEFAULT clock_timestamp()` (a constant default is instant since PostgreSQL 11)
 - `VACUUM FULL` — use `pg_repack` instead
 
+**Drop or rename across releases, not in one.** Code from the previous release is still running while the migration applies, and it fails the moment a column it uses disappears. Expand (add the new column, write to both), migrate (backfill, switch reads), then contract (drop the old column) in a later release.
+
 **Backfill in batches** of roughly 1,000–10,000 rows per transaction, not one huge `UPDATE` that holds locks and bloats the table.
+
+## Reading a Query Plan
+
+For a slow query, get the plan with real numbers — `EXPLAIN (ANALYZE, BUFFERS) <query>` — following the rules at the top: it executes the query, so wrap anything that writes in `BEGIN; … ROLLBACK;`. Use the parameter values that were slow; the plan can change with them. Read from the most indented node outward and look for the node where the time goes.
+
+| In the plan | Usually means | Try |
+|---|---|---|
+| `Seq Scan` with a large `Rows Removed by Filter` | The table is read in full to return a few rows | An index on the filtered columns |
+| Estimated `rows=` far from actual `rows=` (10× or more) | Stale or missing statistics; the planner chose the plan for a different amount of data | `ANALYZE <table>`; extended statistics for correlated columns |
+| `Nested Loop` whose inner node has a large `loops=` | The inner side runs once per outer row; the node's time is per loop | An index on the inner join column, or fix the row estimate that led to this join |
+| `Sort Method: external merge  Disk:` | The sort did not fit in `work_mem` | An index that returns rows already ordered, or more `work_mem` for that session |
+| `Index Only Scan` with high `Heap Fetches` | The table is visited anyway, because the visibility map is out of date | `VACUUM <table>` |
+| Many `Buffers: shared read` | Pages came from disk, not cache | Run it again before concluding; a cold cache is not a query problem |
+| An index exists but is not used | The condition wraps the column (`lower(col)`, a cast), has a leading `%`, or matches most of the table | Index the expression, or accept the sequential scan when most rows match |
+
+A sequential scan is not a problem by itself: for a small table, or a query that returns a large share of the rows, it is the fastest plan.
 
 ## Finding Problems
 
@@ -173,18 +228,22 @@ WHERE c.contype = 'f'
       AND (string_to_array(i.indkey::text, ' ')::int2[])[1:cardinality(c.conkey)] <@ c.conkey
   );
 
--- Queries using the most total time (requires pg_stat_statements; column names are PG13+)
+-- Queries using the most total time in this database
+-- (requires pg_stat_statements; column names are PG13+; the view covers the whole server)
 SELECT query, calls, mean_exec_time, total_exec_time
 FROM pg_stat_statements
+WHERE dbid = (SELECT oid FROM pg_database WHERE datname = current_database())
 ORDER BY total_exec_time DESC
 LIMIT 20;
 
 -- Indexes never used since statistics were reset
-SELECT relname AS table_name, indexrelname AS index_name,
-       pg_size_pretty(pg_relation_size(indexrelid)) AS size
-FROM pg_stat_user_indexes
-WHERE idx_scan = 0
-ORDER BY pg_relation_size(indexrelid) DESC;
+-- (unique indexes are left out: they enforce a constraint even when never scanned)
+SELECT s.relname AS table_name, s.indexrelname AS index_name,
+       pg_size_pretty(pg_relation_size(s.indexrelid)) AS size
+FROM pg_stat_user_indexes s
+JOIN pg_index i ON i.indexrelid = s.indexrelid
+WHERE s.idx_scan = 0 AND NOT i.indisunique
+ORDER BY pg_relation_size(s.indexrelid) DESC;
 
 -- Tables where autovacuum is falling behind
 SELECT relname, n_live_tup, n_dead_tup, last_autovacuum
@@ -197,9 +256,16 @@ SELECT pid, pg_blocking_pids(pid) AS blocked_by, state,
        now() - xact_start AS transaction_age, query
 FROM pg_stat_activity
 WHERE cardinality(pg_blocking_pids(pid)) > 0;
+
+-- Oldest open transactions: they block schema changes and stop vacuum from removing dead rows
+SELECT pid, usename, state, now() - xact_start AS transaction_age, left(query, 60) AS query
+FROM pg_stat_activity
+WHERE xact_start IS NOT NULL AND pid <> pg_backend_pid()
+ORDER BY xact_start
+LIMIT 20;
 ```
 
-Before dropping an "unused" index, check it is not backing a constraint and that statistics have been collected long enough to cover rare jobs, and check replicas — usage is tracked per server.
+Before dropping an "unused" index, check that statistics have been collected long enough to cover rare jobs, and check replicas — usage is tracked per server.
 
 ## Connection Pooling
 
@@ -214,7 +280,7 @@ Before dropping an "unused" index, check it is not backing a constraint and that
 
 ```sql
 ALTER ROLE app_user SET statement_timeout = '30s';
-ALTER ROLE app_user SET lock_timeout = '10s';
+ALTER ROLE app_user SET lock_timeout = '5s';
 ALTER ROLE app_user SET idle_in_transaction_session_timeout = '60s';
 -- takes effect for new sessions of app_user
 ```
