@@ -9,6 +9,18 @@ Turn whatever the user gives you into the 10-15 questions most worth remembering
 
 All Anki access goes through `scripts/anki.py` in this skill's base directory (commands below), so it works whether or not the `anki-mcp` tools are loaded. Anki has to be running.
 
+## Keep the chat clean: draft in a fork
+
+Steps 1-6 produce a lot of output the user never needs afterwards: collection lookups, card answers read in full, pictures, preview fixes. Run them in a fork of this conversation, so the chat keeps only the summary and the decision.
+
+- **Start the fork.** If the Agent tool offers `subagent_type: "fork"`, call it with a prompt like: "Run steps 1-6 of the anki:make-cards skill (base directory: `<this skill's base directory>`) on `<the material, or: the ◆ Anki suggestions in this conversation>`. Stop after the preview. Don't ask the user anything. Return only the step 6 summary and the path to cards.json." Pass along anything the user said about scope, deck, or count. A fork, unlike a fresh subagent, sees this conversation, which the material often is. Tell the user in one line that the draft is being made and the preview page will open.
+- **Show the result.** When the fork reports back, give the user its summary as is and ask whether to add the cards.
+- **Edits.** Send the requested changes to the same fork with `SendMessage`, so it keeps what it learned about the collection, and show the updated summary.
+- **Approval.** Run step 7 yourself in this chat with the `cards.json` path the fork returned.
+- **No fork available** (no Agent tool, or no `fork` type): do every step inline, as written below.
+
+If you are the fork, do steps 1-6 and end with the summary; the step 6 instruction to ask for approval is the main chat's job.
+
 ## 1. Read the material
 
 Work from what the user provided: read the file, page, artifact, or pasted text in full. If they named no material but this conversation has `◆ Anki` suggestion blocks, the material is those suggestions plus the discussion around them. Use the ones the user picked, or all of them if they didn't pick. The suggested questions are seeds: rework, merge, or replace them like any other draft, and add the questions they leave out. If they gave only a topic name, use what you know, and look it up when it is recent or version-specific. Facts on these cards get drilled for years, so a wrong one is expensive: when you are unsure of a detail, verify it or leave it out.
