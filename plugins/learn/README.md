@@ -8,7 +8,7 @@ Skills for learning and understanding topics.
 
 Explains a concept or a whole topic in simple language without losing depth. It picks one of two forms:
 
-- **Chat answer** (default): a short structured explanation of one idea: what it is, why it exists, a small example, how it works on that example, and one thing to be careful about.
+- **Chat answer** (default): a structured explanation of one idea, built up in small steps: what it is in plain words, the problem it solves, what you need to know first, how it works step by step on one small example, and one thing to be careful about. It introduces few new terms and covers less rather than packing more in.
 - **Page**: a published explainer page with plenty of illustrations, for big topics or when you ask for one.
 
 Both forms:

@@ -44,20 +44,36 @@ If nothing shows their level, write for a smart beginner: someone bright who has
 
 ## 5. Chat answer
 
-Use this shape, in this order. Give each part a short bold label in the user's language so the answer is easy to scan.
+A chat answer is a short path the reader walks. It starts at something they already know and reaches the idea in small steps. The usual way it fails is by being a compressed summary: every sentence is correct, but each one carries three ideas and two new terms, so the reader gets lost in the second paragraph. When you have to choose, cover less and explain it fully.
 
-1. **The idea.** One or two plain sentences that say what it is. A reader who stops here should still get the gist.
-2. **Why it exists.** The problem it solves, or what would go wrong without it.
-3. **Example.** The smallest concrete case, with real-looking values.
-4. **How it works.** Walk through the mechanism on that same example, step by step.
+Use this shape, in this order. Give each part a short bold label in the user's language so the reader can see the path at a glance.
+
+1. **In short.** One or two sentences in everyday words, with no new terms. A reader who stops here should still get the gist.
+2. **The problem.** A concrete situation where things go wrong without this idea. The reader should want the solution before they see it.
+3. **What you need first.** Anything the idea rests on that the reader may not know, one line each. Skip this part when there is nothing.
+4. **How it works.** One small example with real-looking values, walked through as a numbered list. Each step adds exactly one new thing and follows from the step before it.
 5. **Careful.** One common misconception, or the place where the idea or your analogy stops being true.
 
-Rules:
+End with one line that offers the next move: simpler, deeper, another example, a part you left out, or a full page.
 
-- Keep it to about one screen. Drop a part only when it truly has nothing to say (a plain definition may have no "how it works").
-- Add a small table for a comparison, or a small text diagram for a flow or structure, only when the thing has that shape.
-- Recompute the example before you send it. Values carried from one step to the next must match.
-- End with one line that offers the next move: simpler, deeper, another example, or a full page when the topic is larger than the answer.
+### Keep it easy to follow
+
+- **Cover less, not denser.** Explain the core idea only. Leave out variants, optimizations, edge cases, and history, and name them in the last line as things you can explain next. Never leave out a step the core idea needs.
+- **Don't squeeze.** Most answers fit on one screen, but a longer answer that the reader can follow is better than a short one they can't. Make an answer shorter by covering less, never by packing more into each sentence.
+- **One idea per sentence.** Keep paragraphs to three sentences at most. Write anything that happens in order as a numbered list, not as a paragraph.
+- **At most three new terms.** Describe everything else in plain words, even when a proper term exists. Put each new term in bold where it first appears and say what it means in that same sentence, using only everyday words. Never explain a term with another term the reader hasn't met. After that, always use the same word for the same thing.
+- **Assume less.** Using a term doesn't prove the reader understands it. When you can't tell whether they know something, explain it in one line. An extra line costs them a few seconds; a missing step loses them.
+- **Don't jump.** Between two steps the reader should never have to ask "wait, why?". If a step depends on a fact, state the fact. Words like "simply", "just", and "obviously" usually mark a skipped step, so when you write one, put the step in.
+- **Show the shape.** Add a small table for a comparison, or a small text diagram for a flow or structure, when the thing has that shape.
+
+### Check before sending
+
+Read the answer once as someone who has never met the topic, and fix what you find:
+
+- Is any term used before it is explained, or explained with another unexplained term?
+- Does any sentence carry more than one idea?
+- Is there a step where you would ask "wait, why?"
+- Recompute the example. Values carried from one step to the next must match.
 
 ## 6. Page
 
