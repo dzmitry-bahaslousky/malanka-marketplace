@@ -90,7 +90,13 @@ Example: a page on Kubernetes rests on "container", which rests on "process" and
 Explain each one where it fits:
 
 - **A small term** (one sentence is enough): explain it in plain words at its first use.
-- **A bigger concept** (needs a paragraph or a picture): put it in a short "Before you start" section near the top, with a small diagram where it helps, inside a `<details>` element that is open by default, so a reader who knows it can collapse it and move on. Explain these in dependency order: "process" before "container".
+- **A product, tool, or abbreviation:** a name is a term too. At its first use, say in a few words what kind of thing it is ("Harbor, a store for container images"), and spell an abbreviation out. A reader who has never seen the name learns nothing from the name alone.
+- **A bigger concept that the whole page rests on** (needs a paragraph or a picture): put it in a short "Before you start" section near the top, with a small diagram where it helps, inside a `<details>` element that is open by default, so a reader who knows it can collapse it and move on. Explain these in dependency order: "process" before "container".
+- **A bigger concept that only one section needs:** explain it at the start of that section, right before it is used, not in "Before you start".
+
+Keep "Before you start" to the few ideas the page cannot start without. If it grows past about five, or one entry has to introduce several terms in a row, it has become a glossary: the reader meets thirty words before they have a reason to care about any of them. Move the ideas that one section needs into that section.
+
+A term's first use is wherever the reader meets it first, and that includes a diagram label, a table cell, and a caption. Either explain the term before the picture or table, or use plain words in it.
 
 ### Shape
 
@@ -104,11 +110,19 @@ One thing holds on every page: **go from the high-level idea down to the reasons
 
 Reach for edge cases, misconceptions, tradeoffs, history, or a recap when they deepen understanding of this topic. None of them is required.
 
+**A page is not a place to pack more in.** A page gives you room, so use the room to explain. The rules that keep a chat answer easy to follow hold in every section of a page:
+
+- One idea per sentence, and short paragraphs.
+- At most two new terms in one paragraph. If a paragraph needs more, split it.
+- Never explain a term with another term the reader hasn't met. After that, always use the same word for the same thing.
+- Between two steps the reader should never have to ask "wait, why?".
+- Write anything that happens in order (a procedure, a build order, a recovery plan) as a numbered list, and give each step its reason: why it is needed, or why it comes at this point. A list of steps without reasons is a summary of the source, not an explanation of it. If there are too many steps to give each a reason, explain the few that carry the logic and say that you left the rest out.
+
 If the user's material contains something that looks wrong, mention it on the page (a short "Note:" callout) and tell the user in chat.
 
 **Make the reader think, not only read.** At the few points where the explanation turns (just before a mechanism is revealed, or before a surprising result), ask the reader to predict what happens, and hide the answer until they open it. Two to four such questions suit most pages; a very short page may need none. Ask only questions whose answer the page has prepared the reader to reason out. Don't ask them to recall a term.
 
-**When the topic is too big for one page** ("explain Kubernetes"), don't cover everything thinly. Pick one spine question, the one this reader most needs answered, and explain it fully. End the page with a short "Not covered here" list that names the parts you left out, so the reader knows the map is larger.
+**When the topic or the shared material is too big for one page** ("explain Kubernetes", or a long design document), don't cover everything thinly. Pick one spine question, the one this reader most needs answered, and explain it fully. With a long document, don't walk through it section by section: that produces a shorter copy of the document, and each part gets thinner than the one before. A sign that you are covering too much is a section that only lists what the source says, without the reasons. End the page with a short "Not covered here" list that names the parts you left out, so the reader knows the map is larger.
 
 ### Link official sources
 
@@ -138,7 +152,8 @@ Save the HTML in the scratchpad directory (or where the user asks).
 Read the finished page once as the reader from section 3, and fix what you find:
 
 - **Depth.** Could the reader answer "why?" one level below each main claim? If not, add that level.
-- **Ground.** Go through the page term by term. Would someone who has never worked in this field know each term without the page? If not, is it explained at or before its first use? Treat nothing as "everyone knows this" unless it is ground.
+- **Ground.** Don't judge this by rereading; make the list. Write down every technical term, product name, and abbreviation on the finished page, in the order the reader meets them, including the ones in diagrams, tables, and captions. Next to each, note where the page explains it. Fix every entry that has no explanation, or whose explanation comes after its first use: explain it there, replace it with plain words, or cut the part that needs it. Treat nothing as "everyone knows this" unless it is ground. The list is for you; don't put it on the page.
+- **Density.** Does any paragraph introduce more than two new terms, or any sentence carry more than one idea? Is any sequence written as a paragraph, or listed without reasons?
 - **Order.** Does any section lean on an idea that comes later?
 - **Examples.** Recompute every worked example by hand or with a quick script. Check that values carried from one step to the next still match. Wrong numbers in an example are the most common error on these pages, and the one that confuses readers most.
 - **Pictures.** Does each diagram show what the text beside it says, with the same names, values, and order of steps?
