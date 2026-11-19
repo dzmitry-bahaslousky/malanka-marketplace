@@ -1,0 +1,15 @@
+{
+  "description": "Asks Claude to answer in a concise, precise, simple and structured way that a newcomer can follow",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ \"$CLAUDE_PLUGIN_OPTION_SIMPLE_ANSWERS\" = false ] || cat \"${CLAUDE_PLUGIN_ROOT}/hooks/answer-style.md\""
+          }
+        ]
+      }
+    ]
+  }
+}

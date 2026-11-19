@@ -1,6 +1,6 @@
 # learn
 
-Skills for learning and understanding topics.
+Skills for learning and understanding topics, plus a hook that keeps every answer easy to follow.
 
 ## Skills
 
@@ -24,6 +24,19 @@ The page also:
 - Links official documentation and primary sources for key facts and historical events
 - Adds a few "predict first" questions with hidden answers
 - Updates the same page when you ask follow-ups
+
+## Simple answers
+
+A `SessionStart` hook (`hooks/answer-style.md`) asks Claude to make every answer, coding work included, easy to follow for someone new to the topic:
+
+- **Concise**: the answer comes first, in one or two sentences, with no filler
+- **Precise**: real names, values, and examples; says when it is unsure
+- **Simple**: short sentences, every term explained in plain words, a concrete example for abstract ideas
+- **Structured**: labels, numbered steps, and small tables, so you can see the shape of the answer at a glance
+
+When short and simple pull against each other, it covers less and explains that part fully.
+
+To tune the style, edit `hooks/answer-style.md`. To turn it off, set the plugin's **Simple answers** option (`simple_answers`) to `false` in its settings under `/plugin`; the `explain` skill keeps working. The change applies from the next session.
 
 ## Usage
 
