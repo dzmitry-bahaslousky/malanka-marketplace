@@ -23,7 +23,7 @@
     {
       "name": "git",
       "source": "./plugins/git",
-      "description": "Streamlined Git commit command with auto-generated messages and preview",
+      "description": "Git commits with auto-generated messages and preview, plus background code review of branches, PRs and MRs",
       "author": {
         "name": "Dzmitry Bahaslouski",
         "email": "dzmitry.bahaslouski.jcs@gmail.com"

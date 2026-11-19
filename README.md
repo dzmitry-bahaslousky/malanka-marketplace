@@ -19,7 +19,7 @@ Then install the plugins you want:
 | Plugin | What it does | Install |
 |--------|--------------|---------|
 | [note-taker](plugins/note-taker) | Turns meeting and lecture transcripts into structured notes | `/plugin install note-taker@malanka-marketplace` |
-| [git](plugins/git) | `/commit` with auto-generated messages and a preview | `/plugin install git@malanka-marketplace` |
+| [git](plugins/git) | `/commit` with auto-generated messages and a preview; `/git:review` for background code review of branches, PRs and MRs | `/plugin install git@malanka-marketplace` |
 | [notebooklm](plugins/notebooklm) | Works with Google NotebookLM: notebooks, sources, audio overviews, quizzes | `/plugin install notebooklm@malanka-marketplace` |
 | [anki](plugins/anki) | Makes illustrated Anki cards that fit your collection; AnkiConnect MCP | `/plugin install anki@malanka-marketplace` |
 | [yt-dlp](plugins/yt-dlp) | Downloads video, audio, playlists, subtitles and metadata | `/plugin install yt-dlp@malanka-marketplace` |

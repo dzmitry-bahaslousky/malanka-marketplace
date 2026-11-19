@@ -1,10 +1,10 @@
 {
   "name": "git",
-  "version": "1.0.0",
-  "description": "Streamlined Git commit command with auto-generated messages and preview",
+  "version": "1.1.0",
+  "description": "Git commits with auto-generated messages and preview, plus background code review of branches, PRs and MRs",
   "author": {
     "name": "Dzmitry Bahaslouski",
     "email": "dzmitry.bahaslouski.jcs@gmail.com"
   },
-  "keywords": ["git", "commit"]
+  "keywords": ["git", "commit", "code-review"]
 }
