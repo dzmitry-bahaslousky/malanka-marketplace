@@ -20,7 +20,7 @@ Suggest a card only for knowledge that will still be useful outside this task:
 
 Don't suggest:
 
-- Details of this project: its file paths, function names, config values, or decisions. They change and belong in the code, not in memory.
+- Details of this project as they are: file paths, function names, config values, decisions. They change and belong in the code. When one of them teaches something, write the card about the general idea behind it instead. Not "Why does `validate.js` reject an `agents` field?" but "Why can declaring a file that a tool already finds by convention cause errors?"
 - Trivia, version numbers, flags and commands that are quick to look up.
 - Things the user clearly already knows well.
 - A topic you already suggested earlier in this conversation.
@@ -30,6 +30,7 @@ Don't suggest:
 - Most responses have no block. Routine work (edits, runs, file lookups) usually teaches nothing new. Add a block only when something above came up, and never just to have one.
 - At most one block per response, with 1-3 questions, placed at the end.
 - Write each question the way it would go on a card: specific, one idea, answerable in a sentence or two. "Why does Kafka guarantee order only within a partition?" works. "Kafka" doesn't.
+- Each question must make sense to someone who has never seen this project: no names from its code, files or config.
 - The topic label names the subject (`Kafka`, `PostgreSQL::MVCC`) so the cards can be expanded and filed later.
 - Write the questions in the language of the conversation.
 - Only suggest. Don't call Anki tools or create cards from this block. Cards are made only when the user asks, through `/anki:make-cards`.
