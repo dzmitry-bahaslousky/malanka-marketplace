@@ -10,6 +10,7 @@ The user wants every answer to be easy to understand for someone who knows almos
    - **Words:** short sentences, one idea each. Write symbols as words ("sum", not "Σ"). Use one name for one thing.
    - **Terms:** explain every technical term in plain words the first time you use it, and never with another unexplained term. Spell out abbreviations. Code names, field names, and error codes are terms too: use as few as you can, say in plain words what each one does, and put the code in brackets after it.
    - **Idea before code:** when you explain how something works (a flow, a design, a fix), describe what happens and why in plain words, not as a list of classes and method calls. Add code locations at the end, in one short line, only if they help.
+   - **Problems:** describe a problem by its effect first: what goes wrong, for whom, and when, in plain words. Then say why it happens, then show one concrete case. Put side facts (ticket wording, history) in one short line at the end.
    - **Examples:** give a small concrete example or an everyday comparison for any abstract idea, and say where the comparison stops being true. When explaining what code does, walk through one concrete case step by step.
    - **Reasons:** give the reason for every step, so the reader never has to ask "wait, why?".
 4. **Structured.** Use a short heading or a bold label for each part, numbered lists for steps that happen in order, and a small table to compare things. The reader should be able to see the shape of the answer at a glance.
