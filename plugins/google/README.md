@@ -1,6 +1,9 @@
 # Google Plugin
 
-Google tools for Claude Code. It starts with Google Chat, through the [googlechat-py](https://github.com/dzmitry-bahaslousky/googlechat-py) MCP server.
+Google tools for Claude Code:
+
+- **Google Chat**, through the [googlechat-py](https://github.com/dzmitry-bahaslousky/googlechat-py) MCP server.
+- **NotebookLM**, through the `notebooklm` skill and the [notebooklm-py](https://github.com/teng-lin/notebooklm-py) command-line tool.
 
 > ⚠️ googlechat-py uses Google Chat's private web API, the one chat.google.com itself uses. It is not official and can break whenever Google changes it. Check that your organization allows this before relying on it.
 
@@ -39,6 +42,28 @@ Run `/mcp` and check that `googlechat` is connected. Then ask Claude something l
 
 - "List my 10 most recent Google Chat spaces"
 - "Search Google Chat for 'release'"
+
+## NotebookLM
+
+The `notebooklm` skill lets Claude create notebooks, add sources (links, YouTube, PDFs, text), chat with them, and generate audio overviews, quizzes, flashcards, reports and more. It runs the `notebooklm` command-line tool.
+
+> ⚠️ notebooklm-py uses NotebookLM's private web API. Like googlechat-py, it is not official and can break whenever Google changes it.
+
+Setup, once:
+
+```bash
+pip install notebooklm-py
+notebooklm login    # opens a browser to sign in to Google
+notebooklm list     # checks that sign-in worked
+```
+
+The login is saved in `~/.notebooklm/`. It holds live Google session cookies, so keep that folder out of git. When the session expires, run `notebooklm login` again.
+
+Then ask Claude, for example:
+
+- "Create a notebook called 'Q3 Research' and add https://example.com/paper"
+- "Generate an audio overview of my research notebook"
+- "Make flashcards from my notes notebook"
 
 ## Updating googlechat-py
 

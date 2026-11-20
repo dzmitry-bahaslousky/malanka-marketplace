@@ -32,16 +32,6 @@
       "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/git"
     },
     {
-      "name": "notebooklm",
-      "source": "./plugins/notebooklm",
-      "description": "Interact with Google NotebookLM from Claude Code — create notebooks, add sources, generate audio overviews, quizzes, flashcards, and chat with your research",
-      "author": {
-        "name": "Dzmitry Bahaslouski",
-        "email": "dzmitry.bahaslouski.jcs@gmail.com"
-      },
-      "category": "productivity"
-    },
-    {
       "name": "anki",
       "source": "./plugins/anki",
       "description": "Turn topics and pages into simple, illustrated Anki cards that fit your collection, plus AnkiConnect MCP access to decks and cards",
@@ -95,7 +85,7 @@
     {
       "name": "google",
       "source": "./plugins/google",
-      "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, signed in with your own browser session",
+      "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, and work with NotebookLM notebooks, sources, audio overviews, quizzes and flashcards",
       "author": {
         "name": "Dzmitry Bahaslouski",
         "email": "dzmitry.bahaslouski.jcs@gmail.com"

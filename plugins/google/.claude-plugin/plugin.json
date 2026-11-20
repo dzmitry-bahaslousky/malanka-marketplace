@@ -1,12 +1,12 @@
 {
   "name": "google",
-  "version": "0.1.1",
-  "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, signed in with your own browser session",
+  "version": "0.2.0",
+  "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, signed in with your own browser session, and work with NotebookLM notebooks, sources, audio overviews, quizzes and flashcards",
   "author": {
     "name": "Dzmitry Bahaslouski",
     "email": "dzmitry.bahaslouski.jcs@gmail.com"
   },
-  "keywords": ["google", "google-chat", "chat", "mcp"],
+  "keywords": ["google", "google-chat", "chat", "mcp", "notebooklm", "research"],
   "userConfig": {
     "chat_write_tools": {
       "type": "boolean",

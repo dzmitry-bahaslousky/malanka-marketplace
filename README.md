@@ -20,13 +20,12 @@ Then install the plugins you want:
 |--------|--------------|---------|
 | [note-taker](plugins/note-taker) | Turns meeting and lecture transcripts into structured notes | `/plugin install note-taker@malanka-marketplace` |
 | [git](plugins/git) | `/commit` with auto-generated messages and a preview; `/git:review` for background code review of branches, PRs and MRs | `/plugin install git@malanka-marketplace` |
-| [notebooklm](plugins/notebooklm) | Works with Google NotebookLM: notebooks, sources, audio overviews, quizzes | `/plugin install notebooklm@malanka-marketplace` |
 | [anki](plugins/anki) | Makes illustrated Anki cards that fit your collection; AnkiConnect MCP | `/plugin install anki@malanka-marketplace` |
 | [yt-dlp](plugins/yt-dlp) | Downloads video, audio, playlists, subtitles and metadata | `/plugin install yt-dlp@malanka-marketplace` |
 | [mermaid](plugins/mermaid) | Renders Mermaid diagrams with live reload | `/plugin install mermaid@malanka-marketplace` |
 | [learn](plugins/learn) | Explains a concept in a short structured chat answer, or a topic as an illustrated explainer page; keeps every answer simple and structured | `/plugin install learn@malanka-marketplace` |
 | [database-bundle](plugins/database-bundle) | Read-only SQL reviewer agent and PostgreSQL playbook | `/plugin install database-bundle@malanka-marketplace` |
-| [google](plugins/google) | Google Chat MCP: list chats, read and search messages; sending is an opt-in setting | `/plugin install google@malanka-marketplace` |
+| [google](plugins/google) | Google Chat MCP: list chats, read and search messages; sending is an opt-in setting. NotebookLM: notebooks, sources, audio overviews, quizzes | `/plugin install google@malanka-marketplace` |
 
 ## Adding Plugins to This Marketplace
 
