@@ -1,0 +1,66 @@
+name: Update googlechat-py
+
+# The google plugin pins googlechat-py to a release tag. Once a week, open a
+# pull request that moves it to the newest release and bumps the plugin version.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update googlechat-py pin
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22.x'
+
+      - name: Move pin to newest release
+        id: update
+        run: node .github/scripts/update-googlechat-py.js
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # A pull request opened with GITHUB_TOKEN does not start other workflows,
+      # so validate.yml won't run on it. Validate here instead.
+      - name: Validate marketplace and plugins
+        if: steps.update.outputs.tag != ''
+        run: node .github/scripts/validate.js
+
+      - name: Open pull request
+        if: steps.update.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.update.outputs.tag }}
+          VERSION: ${{ steps.update.outputs.version }}
+        run: |
+          branch="update-googlechat-py-$TAG"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            echo "Branch $branch already exists; a pull request is already open or was closed on purpose."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git commit -am "Update googlechat-py to $TAG"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "Update googlechat-py to $TAG" \
+            --body "Moves the google plugin to [googlechat-py $TAG](https://github.com/dzmitry-bahaslousky/googlechat-py/releases/tag/$TAG) and bumps the plugin to $VERSION.
+
+          The marketplace validator passed in the workflow that opened this pull request. Check the release notes, and raise the version to a minor bump if the release adds features."

@@ -1,6 +1,6 @@
 {
   "name": "google",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, signed in with your own browser session",
   "author": {
     "name": "Dzmitry Bahaslouski",

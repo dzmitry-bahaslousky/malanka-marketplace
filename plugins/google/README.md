@@ -42,4 +42,4 @@ Run `/mcp` and check that `googlechat` is connected. Then ask Claude something l
 
 ## Updating googlechat-py
 
-`.mcp.json` pins googlechat-py to one commit, so users get a new server version only with a new plugin version. To update, change the commit in `.mcp.json` and bump `version` in `plugin.json`.
+`.mcp.json` pins googlechat-py to a release tag, so users get a new server version only with a new plugin version. Every Monday the `Update googlechat-py` workflow checks for a newer release (pre-releases count, drafts don't) and opens a pull request that moves the pin and bumps `version` in `plugin.json`. To update by hand, run `node .github/scripts/update-googlechat-py.js`.
