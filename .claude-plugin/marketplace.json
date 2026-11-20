@@ -91,6 +91,17 @@
         "email": "dzmitry.bahaslouski.jcs@gmail.com"
       },
       "category": "development"
+    },
+    {
+      "name": "google",
+      "source": "./plugins/google",
+      "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, signed in with your own browser session",
+      "author": {
+        "name": "Dzmitry Bahaslouski",
+        "email": "dzmitry.bahaslouski.jcs@gmail.com"
+      },
+      "category": "productivity",
+      "homepage": "https://github.com/dzmitry-bahaslousky/malanka-marketplace/tree/main/plugins/google"
     }
   ]
 }

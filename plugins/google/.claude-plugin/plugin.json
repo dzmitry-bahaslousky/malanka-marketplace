@@ -1,0 +1,18 @@
+{
+  "name": "google",
+  "version": "0.1.0",
+  "description": "Google tools for Claude Code — read, search and (optionally) send Google Chat messages, signed in with your own browser session",
+  "author": {
+    "name": "Dzmitry Bahaslouski",
+    "email": "dzmitry.bahaslouski.jcs@gmail.com"
+  },
+  "keywords": ["google", "google-chat", "chat", "mcp"],
+  "userConfig": {
+    "chat_write_tools": {
+      "type": "boolean",
+      "title": "Google Chat write tools",
+      "description": "Let Claude send, reply, react, and edit or delete your own Google Chat messages. Messages Claude reads are written by other people and could try to trick it into posting as you, so keep approval prompts on for these tools.",
+      "default": false
+    }
+  }
+}

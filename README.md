@@ -26,6 +26,7 @@ Then install the plugins you want:
 | [mermaid](plugins/mermaid) | Renders Mermaid diagrams with live reload | `/plugin install mermaid@malanka-marketplace` |
 | [learn](plugins/learn) | Explains a concept in a short structured chat answer, or a topic as an illustrated explainer page; keeps every answer simple and structured | `/plugin install learn@malanka-marketplace` |
 | [database-bundle](plugins/database-bundle) | Read-only SQL reviewer agent and PostgreSQL playbook | `/plugin install database-bundle@malanka-marketplace` |
+| [google](plugins/google) | Google Chat MCP: list chats, read and search messages; sending is an opt-in setting | `/plugin install google@malanka-marketplace` |
 
 ## Adding Plugins to This Marketplace
 
