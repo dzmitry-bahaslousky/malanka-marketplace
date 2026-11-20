@@ -14,6 +14,7 @@ Comprehensive Git workflow automation with intelligent commit creation, AI-power
 ### Review Skill
 - **Works out what to compare**: a PR/MR link or number from any hosting service, a branch, staged or uncommitted changes
 - **Fetches the ticket** named in the PR title or branch name (e.g. `ABC-123`) through your tracker's connector or CLI, and checks the change against its acceptance criteria
+- **Reads existing PR/MR comments** so the report doesn't repeat them, and says for each one whether it is fixed, still open, or wrong
 - **Diffs from where the branch split off**, so changes merged into the base later don't show up as yours
 - **Runs in the background** and never touches your working tree
 - **Report**: summary, why, flow through the code, changes grouped by purpose, then issues sorted Critical → Low, each with a failure case and a suggested fix
