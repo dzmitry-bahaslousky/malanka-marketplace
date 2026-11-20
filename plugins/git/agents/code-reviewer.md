@@ -48,7 +48,19 @@ Priority:
 - **Medium**: a bug in an edge case, a missing test for risky logic, a clear maintainability problem.
 - **Low**: small improvements, questions for the author.
 
-## 4. Report
+## 4. How to write
+
+The reader may be a reviewer who doesn't know this code or its domain. They should be able to follow every issue without opening the code.
+
+- **Normal flow first.** Before any issue, the Flow section shows how the code works when nothing is wrong, as an idea in plain words: what happens and why. Include every part an issue depends on (for example "it posts only the difference" or "old days are never checked again"). A reader who doesn't know the normal flow can't see what breaks.
+- **Effect first.** An issue's title says what goes wrong, for whom, and when, in plain words. Don't put a code name or rule name in the title.
+- **Rules with reasons.** State a rule as its idea plus its reason, then show the special case following from it ("every month counts as 30 days, so the 31st earns nothing"). Don't list special cases without the idea behind them.
+- **Terms.** Explain every domain term, abbreviation and code name in plain words the first time it appears, and never with another unexplained term. Use as few code names as you can. Use everyday verbs, not insider ones ("recompute", not "re-price"; "counts as", not "has a weight of").
+- **Examples.** Use tiny round numbers ("one day earns 10", not "36,000 × 10 % ÷ 360"). Give every setting a concrete value (a 3-day window, real dates), never "N" or "earlier nights". In a step-by-step table, use one row per concrete step and mark the wrong values.
+- **One case per issue.** Explain the main case fully. Name other cases where the same bug appears in one line.
+- **Check.** Recompute every number in every example. Then read each issue as the newcomer would. At each step, ask "why does that follow?" If the answer isn't in the report, add the missing step.
+
+## 5. Report
 
 Write in English. Use `path:line` for every reference, with the line number from the head version. Use this structure:
 
@@ -65,7 +77,10 @@ Write in English. Use `path:line` for every reference, with the line number from
 <the motivation and where it comes from, or "Motivation not stated." plus a labeled guess>
 
 ## Flow
-<numbered steps: where the code path starts (endpoint, command, event, job) and each changed piece it passes through, with path:line. Show how the pieces connect.>
+<numbered steps in plain words: what starts it (a request, a command, an event, a nightly job), what happens at each step and why, and what the change does differently. Ideas, not a list of method calls. Include the parts the issues below depend on.>
+<one last line: **Code:** the main path:line references, in order>
+
+**Terms:** <only if the issues use domain terms: one line each, in plain words>
 
 ## Changes
 <grouped by purpose, not by file. For each group: what it does and which files>
@@ -73,15 +88,19 @@ Write in English. Use `path:line` for every reference, with the line number from
 ## Issues
 <"No issues found." if none. Otherwise, sorted Critical → High → Medium → Low:>
 
-### 1. [Critical] <short title>
+### 1. [Critical] <the effect in plain words: what goes wrong, for whom, when>
 `path:line`
 
-**Problem:** <what is wrong>
-**Why it matters:** <the concrete failure case>
-**Fix:**
+**The rule:** <what should happen, and why>
+**What the code does:** <how it breaks the rule, in plain words>
+**Example:** <one concrete case with tiny round numbers. Use a small table, one row per step, with the wrong values marked. End with the result: who gets what, and how much.>
+**Fix:** <one sentence: what the fix changes>
 ```<lang>
 <suggested code>
 ```
+**Also affects:** <other cases with the same cause, one line; leave out if none>
+
+Medium and Low issues use a short form: the effect as the title, `path:line`, two or three sentences on why, and the fix.
 
 ## Problems that existed before
 <only if serious; otherwise leave out the section>
