@@ -60,13 +60,49 @@ Priority:
 
 The reader may be a reviewer who doesn't know this code or its domain. They should be able to follow every issue without opening the code.
 
-- **Normal flow first.** Before any issue, the Flow section shows how the code works when nothing is wrong, as an idea in plain words: what happens and why. Include every part an issue depends on (for example "it posts only the difference" or "old days are never checked again"). A reader who doesn't know the normal flow can't see what breaks.
-- **Effect first.** An issue's title says what goes wrong, for whom, and when, in plain words. Don't put a code name or rule name in the title.
+- **Normal flow first.** Before any issue, the Flow section shows how the code works when nothing is wrong, as an idea in plain words: what happens and why. Include every part an issue depends on (for example "it posts only the difference" or "old days are never checked again"). A reader who doesn't know the normal flow can't see what breaks. You found the flow by following calls through the code; the reader needs the idea behind those calls, so rewrite each call into what it achieves. See "Writing the Flow" below.
+- **Plain Summary.** The Summary follows the same rules as the Flow steps: plain words, no code names, no unexplained tool or protocol words.
+- **Effect first.** An issue's title says what goes wrong, for whom, and when, in plain words. Don't put a code name or rule name in the title. The title and the **What the code does** line (or the short form's first sentence) must describe the same problem; if they drift apart, rewrite the title.
 - **Rules with reasons.** State a rule as its idea plus its reason, then show the special case following from it ("every month counts as 30 days, so the 31st earns nothing"). Don't list special cases without the idea behind them.
 - **Terms.** Explain every domain term, abbreviation and code name in plain words the first time it appears, and never with another unexplained term. Use as few code names as you can. Use everyday verbs, not insider ones ("recompute", not "re-price"; "counts as", not "has a weight of").
 - **Examples.** Use tiny round numbers ("one day earns 10", not "36,000 × 10 % ÷ 360"). Give every setting a concrete value (a 3-day window, real dates), never "N" or "earlier nights". In a step-by-step table, use one row per concrete step and mark the wrong values.
 - **One case per issue.** Explain the main case fully. Name other cases where the same bug appears in one line.
-- **Check.** Recompute every number in every example. Then read each issue as the newcomer would. At each step, ask "why does that follow?" If the answer isn't in the report, add the missing step.
+- **Check.** Recompute every number in every example. Then read the Flow and each issue as the newcomer would. At each step, ask "why does that follow?" If the answer isn't in the report, add the missing step. Then check the Flow on its own: could someone who has never seen this code retell it without looking anything up? Is every word in it that a newcomer wouldn't know listed under **Terms**?
+
+### Writing the Flow
+
+The Flow has a fixed shape, so the reader always finds the same things in the same place:
+
+1. **What you get:** one sentence on what a user, caller or job gets from this code, with a concrete case.
+2. **Before:** one or two sentences on how it worked before the change and what was wrong with that. Leave out for brand-new code.
+3. **Now:** 3 to 6 numbered steps. Each step is one idea: what happens, then why. The reason is part of the step, not optional.
+4. **Example:** one walk-through with tiny numbers. Required when any issue depends on counts, order, timing or limits; otherwise leave out.
+
+Rules for the steps:
+
+- **No code names in the steps.** No function, class, file or variable names, in backticks or not. They go in the **Code:** line at the end.
+- **No unexplained tool or protocol words.** If a step needs one (a token, an endpoint, a format), say what it is in the same sentence, in plain words, or leave it out.
+- **Main path only.** Retries, token refresh, logging, error handling and caching go in Changes, not the Flow, unless an issue depends on them.
+- **Name the parts the issues depend on.** If an issue says "the request size shrinks", a step must already have said how the request size is chosen.
+- **Every step earns its place.** Before keeping a step, ask: if I delete it, does the reader lose the main idea or something an issue depends on? If not, delete it. Converting ids, formats or names between systems is usually such a step.
+
+This example is about a made-up change, to show the level. A nightly job posts interest to savings accounts.
+
+Bad (a trace of calls; the reader learns names, not ideas):
+
+> 1. `InterestJob.run()` calls `AccrualService.accrue(account, date)` for each account.
+> 2. `accrue` loads `rateTable` via `RateRepo.find(productId)` and computes `balance * rate / 360`.
+> 3. The result is saved with `postingRepo.upsert()`; on `OptimisticLockException` it retries 3 times.
+
+Good (ideas with reasons):
+
+> **What you get:** every night, each savings account gets the interest it earned that day, e.g. 3,600 at 10% a year earns 1.
+> **Before:** interest was added once a month, so a customer who closed an account mid-month lost those days.
+> **Now:**
+> 1. At night, the job goes through every open account, because interest is earned for each day the money stays.
+> 2. It looks up the yearly rate for the account's product and takes 1/360 of it, because the bank counts every year as 360 days.
+> 3. It posts only the difference from what is already posted for that day, so running the job twice doesn't pay twice.
+> **Example:** balance 3,600 at 10% a year earns 1 a day (3,600 × 10% ÷ 360). If the job runs twice on Monday, the second run finds 1 already posted and posts 0.
 
 ## 5. Report
 
@@ -85,10 +121,14 @@ Write in English. Use `path:line` for every reference, with the line number from
 <the motivation and where it comes from, or "Motivation not stated." plus a labeled guess>
 
 ## Flow
-<numbered steps in plain words: what starts it (a request, a command, an event, a nightly job), what happens at each step and why, and what the change does differently. Ideas, not a list of method calls. Include the parts the issues below depend on.>
-<one last line: **Code:** the main path:line references, in order>
+**What you get:** <one sentence, with a concrete case>
+**Before:** <one or two sentences; leave out for brand-new code>
+**Now:**
+1. <what happens, and why. No code names. 3 to 6 steps, main path only>
+**Example:** <a walk-through with tiny numbers, when an issue depends on counts, order, timing or limits; otherwise leave out>
+**Code:** <the main path:line references, in order>
 
-**Terms:** <only if the issues use domain terms: one line each, in plain words>
+**Terms:** <every word in the Flow or the issues a newcomer wouldn't know: one line each, in plain words. Leave out only if there are none>
 
 ## Changes
 <grouped by purpose, not by file. For each group: what it does and which files>
