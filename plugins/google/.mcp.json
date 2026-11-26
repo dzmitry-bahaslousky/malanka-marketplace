@@ -4,7 +4,7 @@
       "command": "sh",
       "args": [
         "-c",
-        "case \"$CHAT_WRITE_TOOLS\" in true|1) export GCHAT_MCP_WRITE=1 ;; esac; exec uvx --from git+https://github.com/dzmitry-bahaslousky/googlechat-py@v0.0.2 googlechat-mcp"
+        "case \"$CHAT_WRITE_TOOLS\" in true|1) export GCHAT_MCP_WRITE=1 ;; esac; exec uvx --from git+https://github.com/dzmitry-bahaslousky/googlechat-py googlechat-mcp"
       ],
       "env": {
         "CHAT_WRITE_TOOLS": "${user_config.chat_write_tools}"
